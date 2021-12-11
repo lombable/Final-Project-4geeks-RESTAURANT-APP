@@ -38,7 +38,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/users/', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                    "Authorization": "Bearer" + store.accessToken },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -84,7 +85,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/categories', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                    "Authorization": "Bearer" + store.accessToken },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -100,7 +102,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/orders', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                    "Authorization": "Bearer" + store.accessToken },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -116,7 +119,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/products', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                    "Authorization": "Bearer" + store.accessToken },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -138,7 +142,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         fetch(store.path + '/profile/api/v1/tables', {
                             method: 'POST',
-                            headers: { "Content-Type": "application/json" },
+                            headers: { "Content-Type": "application/json",
+                            "Authorization": "Bearer" + store.accessToken },
                             body: JSON.stringify(formData),
                         })
                             .then(resp => resp.json())
@@ -166,7 +171,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
-                            headers: { "Content-Type": "application/json" },
+                            headers: { "Content-Type": "application/json",
+                            "Authorization": "Bearer" + store.accessToken },
                             body: JSON.stringify(formData),
                         })
                             .then(resp => resp.json())
@@ -199,6 +205,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         .then(data => {
                             setStore({
                                 currentUser: data,
+                                accessToken: data,
                                 isAuthenticated: true,
                                 email: null,
                                 password: null,
@@ -228,7 +235,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         await fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
-                            headers: { "Content-Type": "application/json" },
+                            headers: { "Content-Type": "application/json",
+                            "Authorization": "Bearer" + store.accessToken },
                             body: JSON.stringify(formData),
                         })
                             .then(resp => resp.json())
