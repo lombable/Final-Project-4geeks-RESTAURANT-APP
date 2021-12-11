@@ -14,7 +14,7 @@ const Products = () => {
     const productGenerator = store.products.map((product) => {
         return (
             <tr>
-                <th scope="row"><img className="img-thumbnail" style={{height: "50px", width: "50px"}} src={product.productImg}/></th>
+                <th scope="row"><img className="img-thumbnail" style={{height: "50px", width: "50px"}} src={product.aws_path}/></th>
                 <td>{product.product_name}</td>
                 <td>{product.product_price}</td>
                 <td>{product.product_id}</td>
