@@ -1,20 +1,24 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 
 const Products = () => {
 
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
+
+    useEffect(() => {
+        actions.getProducts()
+    }, [])
 
     const productGenerator = store.products.map((product) => {
         return (
             <tr>
                 <th scope="row"><img className="img-thumbnail" style={{height: "50px", width: "50px"}} src={product.productImg}/></th>
-                <td>{product.productName}</td>
-                <td>{product.productPrice}</td>
-                <td>{product.productCategory}</td>
-                <td>{product.isAvailable ? "✓" : "X"}</td>
+                <td>{product.product_name}</td>
+                <td>{product.product_price}</td>
+                <td>{product.product_id}</td>
+                <td>{product.is_disable ? "✓" : "X"}</td>
                 <td><a class="btn btn-primary btn-sm" href="/product-edit" role="button">Edit</a></td>
             </tr>)
     })

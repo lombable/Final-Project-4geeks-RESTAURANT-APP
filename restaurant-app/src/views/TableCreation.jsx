@@ -9,16 +9,19 @@ const TableCreation = () => {
     const { actions, store } = useContext(Context);
 
     const [formData, setFormData] = useState({
-        bill_id: ""
+        bills_id: ""
     });
 
-    const onChange = (e) => {
-        setFormData(e.target.value);
+    const handleChange = (e) => {
+        console.log(e.target.name, e.target.value)
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(formData, store);
         actions.addTable(formData);
     }
 
@@ -37,7 +40,7 @@ const TableCreation = () => {
 
                             <div class="form-outline">
                                 <label class="form-label" for="typeNumber">Please enter the number of the new table:</label>
-                                <input type="text" name="bill_id" id="typeNumber" class="form-control" onChange={onChange} />
+                                <input type="text" name="bills_id" id="typeNumber" class="form-control" onChange={handleChange} />
                             </div>
 
                             <div className="pt-3">
@@ -45,6 +48,13 @@ const TableCreation = () => {
                                     Create new table
                                 </button>
                             </div>
+                            <br/>
+                            {
+                                store.error !== null && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {store.error}
+                                    </div>)
+                            }
                         </form>
                     </div>
                 </div>

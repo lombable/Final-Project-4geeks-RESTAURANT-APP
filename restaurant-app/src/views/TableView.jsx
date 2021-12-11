@@ -1,25 +1,35 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { Link, useParams } from "react-router-dom";
 
 const TableView = () => {
 
     const { store, actions } = useContext(Context);
 
-    const orderGenerator = store.orders.map((order) => {
+    const params = useParams();
+    console.log(params)
+
+    useEffect(() => {
+        actions.getSingleTable(params.id)
+    }, [])
+
+    const orderGenerator = store.singleTable?.requested_products.map((order, i) => {
         return (
-            <div className="col-sm-4 py-2 mt-5">
+            <div className="col-sm-4 py-2 mt-5" key={i}>
                 <div className="card py-3 text-center">
                     <div className="card-header">
-                        Table number "id_number"
+                        Table number {order.table_id}
                     </div>
                     <div className="card-body">
-                        <h5 className="card-title">{order.productName}</h5>
-                        <p className="card-text"><img style={{ height: "100px", width: "100px" }} src={order.productImg}></img></p>
+                        <h5 className="card-title">{order.product_name}</h5>
+                        <p className="card-text">
+                            <img style={{ height: "100px", width: "100px" }} src={order.productImg}></img>
+                        </p>
                     </div>
                     <div className="card-footer text-muted">
-                        8 minutes ago
+                        {order.order_created}
                     </div>
                 </div>
             </div>)
@@ -35,12 +45,23 @@ const TableView = () => {
                     <div className="col-md-8">
                         <div className="mx-4 col d-flex flex-column h-sm-100">
                             <main className="row overflow-auto pt-4">
-                                <h3>Table number #</h3>
-                                <p className="lead">Orders for table number #</p>
+                                <h3>Table number {params.id}</h3>
+                                <p className="lead">Orders for table number {params.id}</p>
                                 <hr />
                                 <div className="row">
-                                    {orderGenerator}
+                                    <div className="col pt-4 text-center">
+                                        <Link className="mx-auto btn btn-success text-center justify-content-around" to="/add-order/table-id" role="button">Add an order</Link>
+                                    </div>
                                 </div>
+                                {
+                                    store.singleTable?.requested_products.length !== 0 ?
+                                        <div className="row">
+                                            {orderGenerator}
+                                        </div>
+                                        :
+                                        <h1>No pending products</h1>
+                            }
+
                             </main>
                         </div>
                     </div>

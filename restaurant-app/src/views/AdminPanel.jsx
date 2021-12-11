@@ -2,6 +2,8 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
+
 
 const AdminPanel = () => {
 
@@ -11,16 +13,18 @@ const AdminPanel = () => {
         actions.getTables()
     }, [])
 
+    
+
     const tableGenerator = store.tables.map((table, i) => {
         return (
-            <a href="/table-view/id" key={i} className="col-sm-4 py-2 mt-5">
+            <Link to={"/table-view/" + table.table_id} key={i} className="col-sm-4 py-2 mt-5">
                 <div className="card text-center" style={{ width: "100%" }}>
                     <img src="../img/restaurant-table.jpg" className="card-img-top mx-auto tablesimg" alt="table" />
                     <div className="card-body">
                         <p className="card-text text-center align-center">Mesa número {table.table_id}</p>
                     </div>
                 </div>
-            </a>)
+            </Link>)
     })
 
     return (

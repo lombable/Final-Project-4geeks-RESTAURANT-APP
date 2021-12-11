@@ -1,4 +1,5 @@
 const getState = ({ getStore, getActions, setStore }) => {
+
     return {
         store: {
             path: 'https://desolate-ridge-14789.herokuapp.com',
@@ -17,64 +18,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             dob: null,
             product_name: null,
             product_price: null,
-            category_id: null,
+            categories: [],
             product_img: null,
             product_description: null,
             is_active: null,
             is_admin: null,
             is_disable: null,
+            bills_id: null,
             tables: [],
+            singleTable: null,
             users: [],
-            products: [
-                {
-                    productImg: "../img/bk-agua.png",
-                    productName: "Agua (1L)",
-                    productPrice: "$ 1.000",
-                    productCategory: "Bebidas",
-                    isAvailable: true,
-                },
-                {
-                    productImg: "../img/img-american-burger.jpg",
-                    productName: "Hamburguesa Americana",
-                    productPrice: "$ 4.500",
-                    productCategory: "Hamburguesas",
-                    isAvailable: true,
-                }, {
-                    productImg: "../img/pizza-margarita.jpg",
-                    productName: "Pizza Margarita",
-                    productPrice: "$ 6.000",
-                    productCategory: "Pizzas",
-                    isAvailable: false,
-                },
-
-            ],
-            orders: [
-                {
-                    productImg: "../img/bk-agua.png",
-                    productName: "Agua (1L)",
-                    productPrice: "$ 1.000",
-                },
-                {
-                    productImg: "../img/img-american-burger.jpg",
-                    productName: "Hamburguesa Americana",
-                    productPrice: "$ 4.500",
-                },
-                {
-                    productImg: "../img/pizza-margarita.jpg",
-                    productName: "Pizza Margarita",
-                    productPrice: "$ 6.000",
-                }
-            ]
+            products: [],
+            accessToken: null,
+            orders: []
         },
 
         actions: {
-            // Use getActions to call a function within a fuction
-
-            addTable: (table) => {
-                const store = getStore();
-                setStore(store.table.concat(table));
-            },
-
             getUsers: () => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/users/', {
@@ -95,7 +54,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/tables/', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                                "Authorization": "Bearer" + store.accessToken },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -107,6 +67,51 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
             },
 
+            getSingleTable: (id) => {
+                const store = getStore();
+                fetch(store.path + '/profile/api/v1/tables/' + id)
+                    .then(resp => resp.json())
+                    .then(data => {
+
+                        setStore({
+                            singleTable: data
+                        })
+
+                    })
+            },
+
+            getCategories: () => {
+                const store = getStore();
+                fetch(store.path + '/profile/api/v1/categories', {
+                    method: 'GET',
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+
+                        setStore({
+                            categories: data.category
+                        })
+
+                    })
+            },
+
+            getOrders: () => {
+                const store = getStore();
+                fetch(store.path + '/profile/api/v1/orders', {
+                    method: 'GET',
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+
+                        setStore({
+                            orders: data.orders
+                        })
+
+                    })
+            },
+            
             getProducts: () => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/products', {
@@ -123,20 +128,75 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
             },
 
-            login: (formData) => {
-                const store = getStore();
-                fetch(store.path + '/login', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData),
-                })
-                    .then(resp => resp.json())
-                    .then(data => {
-                        if (data.msg) {
-                            setStore({
-                                error: data
+            addTable: (formData) => {
+                try {
+                    const store = getStore();
+                    if (!formData.bills_id) {
+                        setStore({
+                            error: "Debe ingresar un número de mesa"
+                        })
+                    } else {
+                        fetch(store.path + '/profile/api/v1/tables', {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(formData),
+                        })
+                            .then(resp => resp.json())
+                            .then(data => {
+                                setStore({
+                                    bills_id: null,
+                                })
+
                             })
-                        } else {
+                    //         history.pushState("/admin-panel");
+                     }
+                } catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            addOrder: (formData) => {
+                try {
+                    const store = getStore();
+                    if (!formData.bill_id) {
+                        setStore({
+                            error: "Debe ingresar un número de mesa"
+                        })
+                    } else {
+                        fetch(store.path + '/profile/api/v1/products', {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(formData),
+                        })
+                            .then(resp => resp.json())
+                            .then(data => {
+                                setStore({
+                                    product_name: null,
+                                    category_id: null,
+                                    product_price: null,
+                                    product_description: null,
+                                    is_disable: null,
+                                })
+
+                            })
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            login: (formData, history) => {
+                try {
+                    const store = getStore();
+                    fetch(store.path + '/login', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData),
+                    })
+                        .then(resp => resp.json())
+                        .then(data => {
                             setStore({
                                 currentUser: data,
                                 isAuthenticated: true,
@@ -144,8 +204,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 password: null,
                                 error: null
                             })
-                        }
+                            
+                            history.push("/admin-panel");
+                        })
+                } catch (error) {
+                    console.log(error)
+                    setStore({
+                        error: error,
+                        email: null,
+                        password: null
                     })
+                }
             },
 
             addProduct: async (formData, history) => {
@@ -171,7 +240,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                     product_description: null,
                                     is_disable: null,
                                 })
-                                
+
                             })
                     }
                 } catch (error) {

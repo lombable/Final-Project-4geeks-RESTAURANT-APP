@@ -3,7 +3,7 @@ import "bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {
   BrowserRouter as Router,
-  Routes,
+  Switch,
   Route,
 } from "react-router-dom";
 import Home from "./views/Home"
@@ -22,28 +22,33 @@ import KitchenOrders from "./views/KitchenOrders";
 import UserEdit from "./views/UserEdit";
 import ProductEdit from "./views/ProductEdit";
 import TableView from "./views/TableView";
+import AddOrder from "./views/AddOrder";
+import UserMainView from "./views/UserMainView";
 
 function App() {
   return (
+
     <Router>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/home" element={<Home />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/client-login" element={<ClientLogin />} />
-              <Route exact path="/worker-register" element={<WorkerRegister />} />
-              <Route exact path="/admin-panel" element={<AdminPanel />} />
-              <Route exact path="/admin-tables" element={<AdminTables />} />
-              <Route exact path="/table-creation" element={<TableCreation />} />
-              <Route exact path="/users" element={<Users />} />
-              <Route exact path="/products" element={<Products />}/>
-              <Route exact path="/add-product" element={<AddProducts />}/>
-              <Route exact path="/kitchen-orders" element={<KitchenOrders />}/>
-              <Route exact path="/user-edit" element={<UserEdit />}/>
-              <Route exact path="/product-edit" element={<ProductEdit />}/>
-              <Route exact path="/table-view/id" element={<TableView />}/>
-            </Routes>
-    </Router >
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/client-login" component={ClientLogin} />
+        <Route exact path="/worker-register" component={WorkerRegister} />
+        <Route exact path="/admin-panel" component={AdminPanel} />
+        <Route exact path="/admin-tables" component={AdminTables} />
+        <Route exact path="/table-creation" component={TableCreation} />
+        <Route exact path="/users" component={Users} />
+        <Route exact path="/products" component={Products} />
+        <Route exact path="/add-product" component={AddProducts} />
+        <Route exact path="/kitchen-orders" component={KitchenOrders} />
+        <Route exact path="/user-edit" component={UserEdit} />
+        <Route exact path="/product-edit" component={ProductEdit} />
+        <Route exact path="/table-view/:id" component={TableView} />
+        <Route exact path="/add-order/table-id" component={AddOrder} />
+        <Route exact path="/user/table-id" component={UserMainView} />
+      </Switch>
+    </Router>
   );
 }
 

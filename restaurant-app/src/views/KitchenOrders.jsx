@@ -1,26 +1,31 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 
 const KitchenOrders = () => {
 
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
+
+    useEffect(() => {
+        actions.getOrders()
+    }, [])
 
     const orderGenerator = store.orders.map((order) => {
         return (
             <div className="col-sm-4 py-2 mt-5">
                 <div className="card py-3 text-center">
                     <div className="card-header">
-                        Table number #
+                        Table number {order.table_id}
                     </div>
                     <div className="card-body">
-                        <h5 className="card-title">{order.productName}</h5>
-                        <p className="card-text"><img style={{ height: "100px", width: "100px" }} src={order.productImg}></img></p>
-                        <a href="#" className="btn btn-success btn-sm">Mark as delivered</a>
+                        <h5 className="card-title">{order.product_name}</h5>
+                        <p className="card-text">
+                            <img style={{ height: "100px", width: "100px" }} src={order.productImg}></img>
+                        </p>
                     </div>
                     <div className="card-footer text-muted">
-                        Food instructions - 8 minutes ago
+                        {order.order_created}
                     </div>
                 </div>
             </div>)

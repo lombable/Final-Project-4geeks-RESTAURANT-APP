@@ -3,10 +3,13 @@ import "bootstrap";
 import '../App.css';
 import Navbar from "../components/Navbar";
 import { Context } from '../store/appContext'
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
 
     const { store, actions } = useContext(Context)
+
+    const history = useHistory();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -24,7 +27,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         console.log(formData)
         e.preventDefault();
-        actions.login(formData)
+        actions.login(formData, history)
     }
 
 
