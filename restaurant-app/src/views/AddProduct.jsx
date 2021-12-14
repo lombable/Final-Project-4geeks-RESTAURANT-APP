@@ -75,6 +75,12 @@ const AddProducts = () => {
                                     <input type="checkbox" className="custom-control-input" checked={formData.is_disable} name="is_disable" onClick={handleClick} id="checkbox" />
                                     <label className="custom-control-label" for="checkbox"> Is it available right now?</label>
                                 </div>
+                                
+
+                                {/* Upload an image button */}
+                                <label for="formFileSm" className="form-label">Upload an image</label>
+                                <input class="form-control form-control-sm" id="formFileSm" type="file" /><br/><br/>
+                                
                                 {
                                     store.error !== null && (
                                         <div className="alert alert-danger" role="alert">
