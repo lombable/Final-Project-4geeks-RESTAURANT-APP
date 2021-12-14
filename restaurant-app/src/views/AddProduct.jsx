@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 const AddProducts = () => {
 
@@ -13,8 +14,9 @@ const AddProducts = () => {
         product_price: "",
         product_description: "",
         is_disable: false,
+        aws_path: null,
     });
-
+    
     const handleChange = (e) => {
         console.log(e.target.name, e.target.value)
         setFormData({
@@ -58,12 +60,12 @@ const AddProducts = () => {
                                 <label for="productCategory">Category of the new product:</label><br /><br />
                                 <select className="browser-default custom-select mb-4" name="category_id" id="productCategory" onChange={handleChange}>
                                     <option value="" disabled="">Category</option>
-                                    <option value="drinks">Drinks</option>
-                                    <option value="pizzas">Pizzas</option>
-                                    <option value="pastas">Pastas</option>
-                                    <option value="burgers">Burgers</option>
-                                    <option value="meat">Meat</option>
-                                    <option value="desserts">Desserts</option>
+                                    <option value="1">Drinks</option>
+                                    <option value="2">Pizzas</option>
+                                    <option value="3">Pastas</option>
+                                    <option value="3">Burgers</option>
+                                    <option value="4">Meat</option>
+                                    <option value="5">Desserts</option>
                                 </select>
                                 <br />
                                 <label for="textarea">Description of the product</label>

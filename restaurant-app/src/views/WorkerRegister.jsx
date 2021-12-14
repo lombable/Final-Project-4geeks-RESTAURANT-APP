@@ -4,6 +4,7 @@ import '../App.css';
 import Navbar from '../components/Navbar'
 import { useState, useContext } from "react";
 import { Context } from '../store/appContext'
+import { Link } from "react-router-dom";
 
 
 const ClientRegister = () => {
@@ -99,9 +100,9 @@ const ClientRegister = () => {
                       </div>
 
                       <div className="form-outline mb-4">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="is_admin" checked={formData.is_admin} id="flexCheckDefault" onChange={handleClick} />
-                          <label class="form-check-label" for="flexCheckDefault">
+                        <div className="form-check">
+                          <input className="form-check-input" type="checkbox" name="is_admin" checked={formData.is_admin} id="flexCheckDefault" onChange={handleClick} />
+                          <label className="form-check-label" for="flexCheckDefault">
                             Is user an admin?
                           </label>
                         </div>

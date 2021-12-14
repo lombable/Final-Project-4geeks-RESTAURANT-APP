@@ -13,8 +13,6 @@ const AdminPanel = () => {
         actions.getTables()
     }, [])
 
-    
-
     const tableGenerator = store.tables.map((table, i) => {
         return (
             <Link to={"/table-view/" + table.table_id} key={i} className="col-sm-4 py-2 mt-5">

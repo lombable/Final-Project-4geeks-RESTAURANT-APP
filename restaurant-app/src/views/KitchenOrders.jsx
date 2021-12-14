@@ -2,8 +2,14 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import ReactTimeAgo from 'react-time-ago'
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import { Link } from "react-router-dom";
 
 const KitchenOrders = () => {
+
+    TimeAgo.addDefaultLocale(en)
 
     const { store, actions } = useContext(Context);
 
@@ -21,11 +27,11 @@ const KitchenOrders = () => {
                     <div className="card-body">
                         <h5 className="card-title">{order.product_name}</h5>
                         <p className="card-text">
-                            <img style={{ height: "100px", width: "100px" }} src={order.productImg}></img>
+                            <img style={{ height: "100px", width: "100px" }} src={order.aws_path}></img>
                         </p>
                     </div>
                     <div className="card-footer text-muted">
-                        {order.order_created}
+                        Order created <ReactTimeAgo date={order.order_created} locale="en-US"/>
                     </div>
                 </div>
             </div>)

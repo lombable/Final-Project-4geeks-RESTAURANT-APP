@@ -24,6 +24,7 @@ import ProductEdit from "./views/ProductEdit";
 import TableView from "./views/TableView";
 import AddOrder from "./views/AddOrder";
 import UserMainView from "./views/UserMainView";
+import MasterRoute from "./layout/masterLayout"
 
 function App() {
   return (
@@ -35,17 +36,17 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/client-login" component={ClientLogin} />
         <Route exact path="/worker-register" component={WorkerRegister} />
-        <Route exact path="/admin-panel" component={AdminPanel} />
-        <Route exact path="/admin-tables" component={AdminTables} />
-        <Route exact path="/table-creation" component={TableCreation} />
-        <Route exact path="/users" component={Users} />
-        <Route exact path="/products" component={Products} />
-        <Route exact path="/add-product" component={AddProducts} />
-        <Route exact path="/kitchen-orders" component={KitchenOrders} />
-        <Route exact path="/user-edit" component={UserEdit} />
-        <Route exact path="/product-edit" component={ProductEdit} />
-        <Route exact path="/table-view/:id" component={TableView} />
-        <Route exact path="/add-order/table-id" component={AddOrder} />
+        <MasterRoute exact path="/admin-panel" component={AdminPanel} />
+        <MasterRoute exact path="/admin-tables" component={AdminTables} />
+        <MasterRoute exact path="/table-creation" component={TableCreation} />
+        <MasterRoute exact path="/users" component={Users} />
+        <MasterRoute exact path="/products" component={Products} />
+        <MasterRoute exact path="/add-product" component={AddProducts} />
+        <MasterRoute exact path="/kitchen-orders" component={KitchenOrders} />
+        <MasterRoute exact path="/user-edit" component={UserEdit} />
+        <MasterRoute exact path="/product-edit" component={ProductEdit} />
+        <MasterRoute exact path="/table-view/:id" component={TableView} />
+        <MasterRoute exact path="/add-order/table-id" component={AddOrder} />
         <Route exact path="/user/table-id" component={UserMainView} />
       </Switch>
     </Router>

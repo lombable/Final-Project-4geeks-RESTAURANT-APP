@@ -3,6 +3,9 @@ import Sidebar from "../components/Sidebar";
 import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useParams } from "react-router-dom";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import ReactTimeAgo from 'react-time-ago'
 
 const TableView = () => {
 
@@ -15,6 +18,8 @@ const TableView = () => {
         actions.getSingleTable(params.id)
     }, [])
 
+    TimeAgo.addDefaultLocale(en)
+
     const orderGenerator = store.singleTable?.requested_products.map((order, i) => {
         return (
             <div className="col-sm-4 py-2 mt-5" key={i}>
@@ -25,11 +30,11 @@ const TableView = () => {
                     <div className="card-body">
                         <h5 className="card-title">{order.product_name}</h5>
                         <p className="card-text">
-                            <img style={{ height: "100px", width: "100px" }} src={order.productImg}></img>
+                            <img style={{ height: "100px", width: "100px" }} src={order.aws_path}></img>
                         </p>
                     </div>
                     <div className="card-footer text-muted">
-                        {order.order_created}
+                    Order created <ReactTimeAgo date={order.order_created} locale="en-US"/>
                     </div>
                 </div>
             </div>)

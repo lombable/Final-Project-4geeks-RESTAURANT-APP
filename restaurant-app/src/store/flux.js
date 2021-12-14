@@ -51,6 +51,24 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
             },
 
+            isAuthenticated: () => {
+                if (sessionStorage.getItem('currentUser')) {
+                    setStore({
+                        currentUser: JSON.parse(sessionStorage.getItem('currentUser')),
+                        isAuthenticated: sessionStorage.getItem('isAuthenticated')
+                    })
+                }
+            },
+
+            logout: (history) => {
+                setStore({
+                    isAuthenticated: false,
+                });
+                sessionStorage.removeItem('isAuthenticated');
+                sessionStorage.removeItem('accessToken');
+                history.push('/')
+            },
+
             getTables: () => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/tables/', {
@@ -204,22 +222,25 @@ const getState = ({ getStore, getActions, setStore }) => {
                         .then(resp => resp.json())
                         .then(data => {
                             setStore({
-                                currentUser: data,
-                                accessToken: data,
+                                accessToken: data.accessToken,
                                 isAuthenticated: true,
                                 email: null,
                                 password: null,
                                 error: null
                             })
-                            
+                            sessionStorage.setItem('isAuthenticated', true)
+                            sessionStorage.setItem('accessToken', store.accessToken)
                             history.push("/admin-panel");
+                        }).catch (e => {
+                            console.log(e)
                         })
                 } catch (error) {
                     console.log(error)
                     setStore({
                         error: error,
                         email: null,
-                        password: null
+                        password: null,
+                        isAuthenticated: false
                     })
                 }
             },
@@ -250,6 +271,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
 
                             })
+                            history.push("/products");
                     }
                 } catch (error) {
                     console.log(error)

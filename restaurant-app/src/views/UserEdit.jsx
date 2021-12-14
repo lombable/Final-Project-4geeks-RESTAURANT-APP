@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 const UserEdit = () => {
 
@@ -64,16 +65,16 @@ const UserEdit = () => {
                                 <label className="form-label" for="form3Example8">Phone Number</label>
                                 <input type="text" name="phone_number" placeholder="+56 9 1234 5678" id="form3Example8" className="form-control form-control-lg" onChange={handleChange} /><br />
 
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="is_admin" checked={formData.is_admin} id="flexCheckDefault" onChange={handleClick} />
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" name="is_admin" checked={formData.is_admin} id="flexCheckDefault" onChange={handleClick} />
+                                    <label className="form-check-label" for="flexCheckDefault">
                                         Is user an admin?
                                     </label>
                                 </div>
                                 <br />
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="is_active" checked={formData.is_active} id="flexCheckDefault" onChange={handleClick} />
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" name="is_active" checked={formData.is_active} id="flexCheckDefault" onChange={handleClick} />
+                                    <label className="form-check-label" for="flexCheckDefault">
                                         Is user active?
                                     </label>
                                 </div>

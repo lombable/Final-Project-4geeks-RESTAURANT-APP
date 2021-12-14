@@ -4,6 +4,7 @@ import '../App.css';
 import Navbar from "../components/Navbar";
 import { Context } from '../store/appContext'
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
 
@@ -77,10 +78,10 @@ const Login = () => {
                                                     {store.error}
                                                 </div>)
                                         }
-                                        <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account? <a href="/worker-register" style={{ color: "#393f81" }}>Register here</a></p>
+                                        <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account? <Link to="/worker-register" style={{ color: "#393f81" }}>Register here</Link></p>
 
-                                        <a href="#!" className="small text-muted">Terms of use.</a>
-                                        <a href="#!" className="small text-muted">Privacy policy</a>
+                                        <Link to="#!" className="small text-muted">Terms of use.</Link>
+                                        <Link to="#!" className="small text-muted">Privacy policy</Link>
                                     </form>
 
                                 </div>

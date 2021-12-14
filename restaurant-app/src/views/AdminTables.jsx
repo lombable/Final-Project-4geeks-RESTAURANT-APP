@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../store/appContext";
 import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const AdminTables = () => {
 
@@ -40,7 +41,7 @@ const AdminTables = () => {
                             </div>
                             <div className="row">
                                 <div className="col pt-4 text-center">
-                                    <a className="mx-auto btn btn-success text-center justify-content-around" href="/table-creation" role="button">Add a table</a>
+                                    <Link className="mx-auto btn btn-success text-center justify-content-around" to="/table-creation" role="button">Add a table</Link>
                                 </div>
                             </div>
                             <div className="row text-center">

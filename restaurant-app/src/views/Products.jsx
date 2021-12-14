@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 const Products = () => {
 
@@ -17,9 +18,9 @@ const Products = () => {
                 <th scope="row"><img className="img-thumbnail" style={{height: "50px", width: "50px"}} src={product.aws_path}/></th>
                 <td>{product.product_name}</td>
                 <td>{product.product_price}</td>
-                <td>{product.product_id}</td>
+                <td>{product.category_id}</td>
                 <td>{product.is_disable ? "✓" : "X"}</td>
-                <td><a class="btn btn-primary btn-sm" href="/product-edit" role="button">Edit</a></td>
+                <td><Link className="btn btn-primary btn-sm" to="/product-edit" role="button">Edit</Link></td>
             </tr>)
     })
 
@@ -38,11 +39,11 @@ const Products = () => {
                                 <hr />
                                 <div className="row">
                                     <div className="col py-4 text-center">
-                                        <a className="mx-auto btn btn-success text-center justify-content-around" href="/add-product" role="button">Add a new product</a>
+                                        <Link className="mx-auto btn btn-success text-center justify-content-around" to="/add-product" role="button">Add a new product</Link>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <table className="table table-bordered text-align-center">
+                                    <table className="table table-striped table-hover table-bordered text-align-center">
                                         <thead className="table-secondary">
                                             <tr classNameName="table-secondary">
                                                 <th scope="col">Picture</th>

@@ -3,6 +3,7 @@ import "bootstrap";
 import '../App.css';
 import Navbar from "../components/Navbar";
 import { isMobile } from 'react-device-detect';
+import { Link } from "react-router-dom";
 
 
 
@@ -24,7 +25,7 @@ const Home = () => {
                                 <p className="lead mb-0">If you are a client, then enter the number of the table you are currently sitting in so you can take a look at our menu.
                                 </p>
                                 <p className="lead pt-5 mt-5">
-                                    <a class="btn btn-secondary" href="/client-login">I already have a table</a>
+                                    <Link className="btn btn-secondary" to="/client-login">I already have a table</Link>
                                 </p>
                             </div>
                         </div>
@@ -48,7 +49,7 @@ const Home = () => {
                                 <p className="lead mb-0">If you are a client, then enter the number of the table you are currently sitting in so you can take a look at our menu.
                                 </p>
                                 <p className="lead pt-5 mt-5">
-                                    <a class="btn btn-secondary" href="/client-login">I already have a table</a>
+                                    <Link className="btn btn-secondary" to="/client-login">I already have a table</Link>
                                 </p>
                             </div>
                         </div>
