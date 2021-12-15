@@ -13,9 +13,15 @@ const AddProducts = () => {
         category_id: "",
         product_price: "",
         product_description: "",
-        is_disable: false,
+        is_disable: "",
         aws_path: null,
+        uploaded_img: null
     });
+
+    const handleImg = (e) => {
+        let uploaded_img = e.target.files[0]
+        setFormData({...formData, uploaded_img})
+    }
     
     const handleChange = (e) => {
         console.log(e.target.name, e.target.value)
@@ -78,8 +84,8 @@ const AddProducts = () => {
                                 
 
                                 {/* Upload an image button */}
-                                <label for="formFileSm" className="form-label">Upload an image</label>
-                                <input class="form-control form-control-sm" id="formFileSm" type="file" /><br/><br/>
+                                <label for="formFileSm" className="form-label">Upload an image</label> 
+                                <input class="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" onChange={handleImg}/><br/><br/>
                                 
                                 {
                                     store.error !== null && (

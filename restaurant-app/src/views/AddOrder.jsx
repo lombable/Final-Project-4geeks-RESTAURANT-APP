@@ -15,6 +15,7 @@ const AddOrder = () => {
             product_id: product.product_id,
             product_quantity: 1,
             table_id: params.id,
+            user_id: 1,
         }
 
         let addProduct = shoppingCart.concat(newProduct)
@@ -39,6 +40,10 @@ const AddOrder = () => {
         <p key={i}><strong>{item.product_name}</strong></p>
         )
     })
+
+    const handleClickConsole = (shoppingCart) => {
+        actions.addOrder(shoppingCart)
+    }
 
     const accordionHeaderGenerator = store.categories.map((category, i) => {
         return (<div className="accordion-item">
@@ -133,7 +138,7 @@ const AddOrder = () => {
                                 <br />
                                 <div className="row">
                                     <div className="col pt-4 text-center">
-                                        <Link className="mx-auto btn btn-success text-center justify-content-around" onClick={() => store.actions.AddOrder(shoppingCart)} to={"/add-order/table-" + params.id} role="button">Add an order</Link>
+                                        <Link className="mx-auto btn btn-success text-center justify-content-around" onClick={() => handleClickConsole(shoppingCart)} to={"/table-view/" + params.id} role="button">Add an order</Link>
                                     </div><br /><br />
                                 </div>
                             </main>

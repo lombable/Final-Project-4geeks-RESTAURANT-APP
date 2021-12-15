@@ -40,7 +40,7 @@ const UserEdit = () => {
         });
     }
 
-    const handleSubmit = (e, history) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         actions.editUser(formData, history, params.id);
     }

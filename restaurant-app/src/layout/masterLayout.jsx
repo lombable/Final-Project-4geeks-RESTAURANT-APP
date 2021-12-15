@@ -15,12 +15,12 @@ const MasterRoute = ({ component: Component, ...others }) => {
     const { store, actions } = useContext(Context)
 
     if (store.isAuthenticated === false) {
-        const user = localStorage.getItem("isAuthenticated")
-        if (user !== null) {
-            actions.revalidate(JSON.parse(user))
+        const isAuthenticated = sessionStorage.getItem("isAuthenticated")
+        if (isAuthenticated) {
+            // actions.revalidate(JSON.parse(user))
         } else {
             return (
-                <Redirect to="/home" />
+                <Redirect to="/login" />
             )
         }
     }
@@ -36,3 +36,4 @@ const MasterRoute = ({ component: Component, ...others }) => {
 }
 
 export default MasterRoute;
+

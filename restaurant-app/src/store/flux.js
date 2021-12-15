@@ -9,7 +9,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: null,
             confirmedPassword: null,
             isAuthenticated: false,
-            token: null,
             first_name: null,
             last_name: null,
             rut: null,
@@ -39,8 +38,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/users/', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json",
-                    "Authorization": "Bearer" + store.accessToken },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer" + store.accessToken
+                    },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -74,8 +75,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/tables/', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json",
-                                "Authorization": "Bearer" + store.accessToken },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer" + store.accessToken
+                    },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -104,8 +107,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/categories', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json",
-                    "Authorization": "Bearer" + store.accessToken },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer" + store.accessToken
+                    },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -121,8 +126,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/orders', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json",
-                    "Authorization": "Bearer" + store.accessToken },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer" + store.accessToken
+                    },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -133,13 +140,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     })
             },
-            
+
             getProducts: () => {
                 const store = getStore();
                 fetch(store.path + '/profile/api/v1/products', {
                     method: 'GET',
-                    headers: { "Content-Type": "application/json",
-                    "Authorization": "Bearer" + store.accessToken },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer" + store.accessToken
+                    },
                 })
                     .then(resp => resp.json())
                     .then(data => {
@@ -161,8 +170,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         fetch(store.path + '/profile/api/v1/tables', {
                             method: 'POST',
-                            headers: { "Content-Type": "application/json",
-                            "Authorization": "Bearer" + store.accessToken },
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": "Bearer" + store.accessToken
+                            },
                             body: JSON.stringify(formData),
                         })
                             .then(resp => resp.json())
@@ -173,41 +184,28 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
 
                             })
-                            history.push("/admin-panel");
-                     }
+                        history.push("/admin-panel");
+                    }
                 } catch (error) {
                     console.log(error)
                 }
 
             },
 
-            addOrder: (formData, shoppingCart, id, history) => {
+            addOrder: (shoppingCart, id) => {
                 try {
                     const store = getStore();
-                    if (!formData.bill_id) {
-                        setStore({
-                            error: "Debe ingresar un número de mesa"
-                        })
-                    } else {
-                        fetch(store.path + '/profile/api/v1/orders', {
-                            method: 'POST',
-                            headers: { "Content-Type": "application/json",
-                            "Authorization": "Bearer" + store.accessToken },
-                            body: JSON.stringify(formData),
-                        })
-                            .then(resp => resp.json())
-                            .then(data => {
-                                setStore({
-                                    product_name: null,
-                                    category_id: null,
-                                    product_price: null,
-                                    product_description: null,
-                                    is_disable: null,
-                                })
-
-                            })
-                    }
-                } catch (error) {
+                    fetch(store.path + '/profile/api/v1/orders/', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer" + store.accessToken
+                        },
+                        body: JSON.stringify(shoppingCart, id),
+                    })
+                        .then(resp => resp.json())
+                }
+                catch (error) {
                     console.log(error)
                 }
 
@@ -223,17 +221,30 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                         .then(resp => resp.json())
                         .then(data => {
-                            setStore({
-                                accessToken: data.accessToken,
-                                isAuthenticated: true,
-                                email: null,
-                                password: null,
-                                error: null
-                            })
-                            sessionStorage.setItem('isAuthenticated', true)
-                            sessionStorage.setItem('accessToken', store.accessToken)
-                            history.push("/admin-panel");
-                        }).catch (e => {
+                            if (data.accessToken) {
+                                setStore({
+                                    accessToken: data.accessToken,
+                                    isAuthenticated: true,
+                                    email: null,
+                                    password: null,
+                                    error: null
+                                })
+
+                                sessionStorage.setItem('isAuthenticated', true)
+                                sessionStorage.setItem('accessToken', store.accessToken)
+                                history.push("/admin-panel");
+                            } else {
+                                setStore({
+                                    accessToken: null,
+                                    isAuthenticated: false,
+                                    email: null,
+                                    password: null,
+                                    error: data.msg
+                                })
+                                sessionStorage.setItem('isAuthenticated', false)
+                                history.push("/login");
+                            }
+                        }).catch(e => {
                             console.log(e)
                         })
                 } catch (error) {
@@ -247,8 +258,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            addProduct: async (formData,  history) => {
-
+            addProduct: async (formData, history) => {
+                let fdata = new FormData()
                 try {
                     const store = getStore();
                     if (!formData.product_name || !formData.category_id || !formData.product_price || !formData.product_description) {
@@ -256,11 +267,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                             error: "Debe completar todos los campos"
                         })
                     } else {
+                        
+                        fdata.append("product_name", formData.product_name)
+                        fdata.append("category_id", formData.category_id)
+                        fdata.append("product_description", formData.product_description)
+                        fdata.append("is_disable", formData.is_disable)
+                        fdata.append("file", formData.uploaded_img)
+
+                        console.log(fdata)
                         await fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
-                            headers: { "Content-Type": "application/json",
-                            "Authorization": "Bearer" + store.accessToken },
-                            body: JSON.stringify(formData),
+                            headers: {
+                                "Authorization": "Bearer" + store.accessToken
+                            },
+                            body: fdata, 
                         })
                             .then(resp => resp.json())
                             .then(data => {
@@ -273,7 +293,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
 
                             })
-                            history.push("/products");
+                        history.push("/products");
                     }
                 } catch (error) {
                     console.log(error)
@@ -292,8 +312,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     } else {
                         await fetch(store.path + '/profile/api/v1/products/' + id, {
                             method: 'PUT',
-                            headers: { "Content-Type": "application/json",
-                            "Authorization": "Bearer" + store.accessToken },
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": "Bearer" + store.accessToken
+                            },
                             body: JSON.stringify(formData),
                         })
                             .then(resp => resp.json())
@@ -307,7 +329,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                     is_disable: null,
                                 })
                             })
-                            history.push("/products");
+                        history.push("/products");
                     }
                 } catch (error) {
                     console.log(error)
@@ -315,7 +337,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
 
-            editUser: async (formData, id, history) => {
+            editUser: async (formData, history, id) => {
 
                 try {
                     const store = getStore();
@@ -338,7 +360,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             .then(setStore({
                                 error: null,
                             }))
-                            history.push("/users");
+                        history.push("/users");
                     }
                 } catch (error) {
                     console.log(error)

@@ -80,8 +80,6 @@ const Login = () => {
                                         }
                                         <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account? <Link to="/worker-register" style={{ color: "#393f81" }}>Register here</Link></p>
 
-                                        <Link to="#!" className="small text-muted">Terms of use.</Link>
-                                        <Link to="#!" className="small text-muted">Privacy policy</Link>
                                     </form>
 
                                 </div>

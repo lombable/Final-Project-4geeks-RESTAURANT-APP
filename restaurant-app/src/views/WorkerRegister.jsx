@@ -99,15 +99,6 @@ const ClientRegister = () => {
                         <label className="form-label" for="form3Example8">Phone Number</label>
                       </div>
 
-                      <div className="form-outline mb-4">
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox" name="is_admin" checked={formData.is_admin} id="flexCheckDefault" onChange={handleClick} />
-                          <label className="form-check-label" for="flexCheckDefault">
-                            Is user an admin?
-                          </label>
-                        </div>
-                      </div>
-
                       <div className="row">
 
                         <div className="col-md-6 mb-4">
