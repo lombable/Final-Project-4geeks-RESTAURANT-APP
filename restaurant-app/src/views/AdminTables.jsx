@@ -23,7 +23,7 @@ const AdminTables = () => {
         </tr>
             )
     })
-    console.log("holi", store.tables)
+    
     return (
         <>
             <div className="container-fluid overflow-hidden">

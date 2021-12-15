@@ -1,23 +1,25 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ProductEdit = () => {
 
     const { actions, store } = useContext(Context);
 
+    const params = useParams();
+
     const [formData, setFormData] = useState({
         product_name: "",
-        category_id: "",
+        product_id: params.id,
         product_price: "",
+        category_id: "",
         product_description: "",
         is_disable: false,
     });
 
     const handleChange = (e) => {
-        console.log(e.target.name, e.target.value)
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -31,10 +33,11 @@ const ProductEdit = () => {
         });
     }
 
-    const handleSubmit = (e) => {
-        console.log(formData)
+    const handleSubmit = (e, history) => {
         e.preventDefault();
-        actions.addProduct(formData)
+        if (params.id !== undefined){
+        actions.editProduct(formData, params.id, history)
+    }
     }
 
     return (
@@ -51,7 +54,7 @@ const ProductEdit = () => {
                                 <p className="h4 mb-4 text-center">Edit a Product</p>
 
                                 <label for="textInput">Name of the product</label>
-                                <input type="text" id="productName" name="product_name" className="form-control mb-4" placeholder="Pizza Margharita" onChange={handleChange} />
+                                <input type="text" id="productName" name="product_name" className="form-control mb-4" placeholder="Pizza Margharita" onChange={handleChange}>{params.product_name}</input>
 
                                 <label for="textInput">Price</label>
                                 <input type="text" id="productPrice" name="product_price" className="form-control mb-4" placeholder="$ 6.500 clp" onChange={handleChange} />
@@ -59,12 +62,12 @@ const ProductEdit = () => {
                                 <label for="productCategory">Category of the new product:</label><br /><br />
                                 <select className="browser-default custom-select mb-4" name="category_id" id="productCategory" onChange={handleChange}>
                                     <option value="" disabled="">Category</option>
-                                    <option value="drinks">Drinks</option>
-                                    <option value="pizzas">Pizzas</option>
-                                    <option value="pastas">Pastas</option>
-                                    <option value="burgers">Burgers</option>
-                                    <option value="meat">Meat</option>
-                                    <option value="desserts">Desserts</option>
+                                    <option value="1">Drinks</option>
+                                    <option value="2">Pizzas</option>
+                                    <option value="3">Pastas</option>
+                                    <option value="4">Burgers</option>
+                                    <option value="5">Meat</option>
+                                    <option value="6">Desserts</option>
                                 </select>
                                 <br />
                                 <label for="textarea">Description of the product</label>
@@ -81,7 +84,7 @@ const ProductEdit = () => {
                                         </div>)
                                 }
                                 <div className="d-grid gap-2">
-                                    <button className="btn btn-success" type="submit">Save changes</button>
+                                    <Link to="/products"><button className="btn btn-success" type="submit" onClick={handleSubmit}>Save changes</button></Link>
                                 </div>
                             </form>
                         </div>

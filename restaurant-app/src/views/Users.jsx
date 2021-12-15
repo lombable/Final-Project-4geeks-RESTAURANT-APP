@@ -20,7 +20,7 @@ const Users = () => {
                 <td>{user.last_name}</td>
                 <td>{user.is_active ? "✓" : "X"}</td>
                 <td>{user.is_staff ? "✓" : "X"}</td>
-                <td><Link className="btn btn-danger btn-sm" to="/user-edit" role="button">Edit</Link></td>
+                <td><Link className="btn btn-danger btn-sm" to={"/user-edit/" + user.id} role="button">Edit</Link></td>
             </tr>
         )
     })

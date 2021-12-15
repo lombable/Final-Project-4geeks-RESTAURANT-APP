@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import { Context } from "../store/appContext";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const TableCreation = () => {
+
+    const history = useHistory();
 
     const { actions, store } = useContext(Context);
 
@@ -21,9 +23,9 @@ const TableCreation = () => {
         });
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = (e, history) => {
         e.preventDefault();
-        actions.addTable(formData);
+        actions.addTable(formData, history);
     }
 
     return (

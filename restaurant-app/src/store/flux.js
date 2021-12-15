@@ -25,6 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             is_admin: null,
             is_disable: null,
             bills_id: null,
+            product_id: null,
             tables: [],
             singleTable: null,
             users: [],
@@ -150,7 +151,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
             },
 
-            addTable: (formData) => {
+            addTable: (formData, history) => {
                 try {
                     const store = getStore();
                     if (!formData.bills_id) {
@@ -168,10 +169,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                             .then(data => {
                                 setStore({
                                     bills_id: null,
+                                    error: null,
                                 })
 
                             })
-                    //         history.pushState("/admin-panel");
+                            history.push("/admin-panel");
                      }
                 } catch (error) {
                     console.log(error)
@@ -179,7 +181,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
 
-            addOrder: (formData) => {
+            addOrder: (formData, shoppingCart, id, history) => {
                 try {
                     const store = getStore();
                     if (!formData.bill_id) {
@@ -187,7 +189,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             error: "Debe ingresar un número de mesa"
                         })
                     } else {
-                        fetch(store.path + '/profile/api/v1/products', {
+                        fetch(store.path + '/profile/api/v1/orders', {
                             method: 'POST',
                             headers: { "Content-Type": "application/json",
                             "Authorization": "Bearer" + store.accessToken },
@@ -245,7 +247,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            addProduct: async (formData, history) => {
+            addProduct: async (formData,  history) => {
 
                 try {
                     const store = getStore();
@@ -279,10 +281,74 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
 
+            editProduct: async (formData, id, history) => {
+
+                try {
+                    const store = getStore();
+                    if (!formData.product_name || !formData.category_id || !formData.product_price || !formData.product_description) {
+                        setStore({
+                            error: "Debe completar todos los campos"
+                        })
+                    } else {
+                        await fetch(store.path + '/profile/api/v1/products/' + id, {
+                            method: 'PUT',
+                            headers: { "Content-Type": "application/json",
+                            "Authorization": "Bearer" + store.accessToken },
+                            body: JSON.stringify(formData),
+                        })
+                            .then(resp => resp.json())
+                            .then(data => {
+                                setStore({
+                                    error: null,
+                                    product_name: null,
+                                    category_id: null,
+                                    product_price: null,
+                                    product_description: null,
+                                    is_disable: null,
+                                })
+                            })
+                            history.push("/products");
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            editUser: async (formData, id, history) => {
+
+                try {
+                    const store = getStore();
+                    if (!formData.first_name || !formData.last_name || !formData.email || !formData.rut || !formData.address || !formData.dob) {
+                        setStore({
+                            error: "Debe completar todos los campos"
+                        })
+                    } else if (formData.password !== formData.confirmedPassword) {
+                        setStore({
+                            error: "Contraseñas no son iguales"
+                        })
+                    }
+                    else {
+                        await fetch(store.path + '/profile/api/v1/users/' + id, {
+                            method: 'PUT',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(formData),
+                        })
+                            .then(resp => resp.json())
+                            .then(setStore({
+                                error: null,
+                            }))
+                            history.push("/users");
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+
+            },
+
             register_client: async (formData) => {
 
                 try {
-                    console.log(formData)
                     const store = getStore();
                     if (!formData.first_name || !formData.last_name || !formData.email || !formData.rut || !formData.address || !formData.dob || !formData.city) {
                         setStore({

@@ -2,33 +2,43 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const AddOrder = () => {
 
     const [shoppingCart, setShoppingCart] = useState([]);
 
-    const onChangeCartHandler = (e) => {
+    const onChangeCartHandler = (product) => {
 
-        
-        let newProduct =  {
-            product_name: [e.target.name],
-            product_id: [e.target.id],
+        let newProduct = {
+            product_name: product.product_name,
+            product_id: product.product_id,
             product_quantity: 1,
-            table_id: 2             
+            table_id: params.id,
         }
 
         let addProduct = shoppingCart.concat(newProduct)
         setShoppingCart(addProduct)
+        console.log(shoppingCart)
     }
 
-    console.log(shoppingCart, "hi")
-
     const { store, actions } = useContext(Context);
+
+    const params = useParams();
 
     useEffect(() => {
         actions.getCategories()
     }, [])
+
+    useEffect(() => {
+        actions.getSingleTable(params.id)
+    }, [])
+
+    const productsOnCart = shoppingCart.map((item, i) => {
+        return(
+        <p key={i}><strong>{item.product_name}</strong></p>
+        )
+    })
 
     const accordionHeaderGenerator = store.categories.map((category, i) => {
         return (<div className="accordion-item">
@@ -58,7 +68,7 @@ const AddOrder = () => {
                                                 <h5 className="card-title">{product.product_name}</h5>
                                                 <small className="card-text">{product.product_description}</small>
                                                 <div className="card-footer">
-                                                    <small className="text-muted"><button type="button" className="btn btn-success btn-sm" onClick={onChangeCartHandler}>Add to cart</button></small>
+                                                    <small className="text-muted"><button type="button" className="btn btn-success btn-sm" onClick={() => onChangeCartHandler(product)}>Add to cart</button></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,15 +117,23 @@ const AddOrder = () => {
                                             </h2>
                                             <div id="collapseSeven" className="accordion-collapse collapse show" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                                                 <div className="accordion-body">
-                                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                                    {
+                                                        shoppingCart.length !== 0 ?
+                                                            <div className="row">
+                                                                {productsOnCart}
+                                                            </div>
+                                                            :
+                                                            <h1>No products added. Add some!</h1>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div><br />
+                                </div>
+                                <br />
                                 <div className="row">
                                     <div className="col pt-4 text-center">
-                                        <Link className="mx-auto btn btn-success text-center justify-content-around" to="/add-order/table-id" role="button">Add an order</Link>
+                                        <Link className="mx-auto btn btn-success text-center justify-content-around" onClick={() => store.actions.AddOrder(shoppingCart)} to={"/add-order/table-" + params.id} role="button">Add an order</Link>
                                     </div><br /><br />
                                 </div>
                             </main>

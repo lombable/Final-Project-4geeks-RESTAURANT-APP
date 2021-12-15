@@ -2,18 +2,26 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 const UserEdit = () => {
 
     const { actions, store } = useContext(Context);
 
+    const history = useHistory();
+
+    const params = useParams();
+
     const [formData, setFormData] = useState({
-        product_name: "",
-        category_id: "",
-        product_price: "",
-        product_description: "",
-        is_disable: false,
+        first_name: '',
+        last_name: '',
+        dob: '',
+        city: '',
+        rut: '',
+        address: '',
+        email: '',
+        password: '',
+        phone_number: '',
     });
 
     const handleChange = (e) => {
@@ -24,6 +32,7 @@ const UserEdit = () => {
         });
     }
 
+
     const handleClick = (e) => {
         setFormData({
             ...formData,
@@ -31,11 +40,12 @@ const UserEdit = () => {
         });
     }
 
-    const handleSubmit = (e) => {
-        console.log(formData)
+    const handleSubmit = (e, history) => {
         e.preventDefault();
-        actions.addProduct(formData)
+        actions.editUser(formData, history, params.id);
     }
+
+    
 
     return (
         <>
@@ -66,13 +76,6 @@ const UserEdit = () => {
                                 <input type="text" name="phone_number" placeholder="+56 9 1234 5678" id="form3Example8" className="form-control form-control-lg" onChange={handleChange} /><br />
 
                                 <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" name="is_admin" checked={formData.is_admin} id="flexCheckDefault" onChange={handleClick} />
-                                    <label className="form-check-label" for="flexCheckDefault">
-                                        Is user an admin?
-                                    </label>
-                                </div>
-                                <br />
-                                <div className="form-check">
                                     <input className="form-check-input" type="checkbox" name="is_active" checked={formData.is_active} id="flexCheckDefault" onChange={handleClick} />
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Is user active?
@@ -99,12 +102,12 @@ const UserEdit = () => {
                                 }
                                 <br />
                                 <div className="d-grid gap-2">
-                                    <button className="btn btn-success" type="submit">Save changes</button>
+                                    <button className="btn btn-success" type="submit" onSubmit={handleSubmit}>Save changes</button>
                                 </div>
                                 <br />
                             </form>
                             <div className="d-grid gap-2">
-                                <button className="btn btn-danger" type="submit">Erase user</button>
+                                <Link to="users"><button className="btn btn-danger" type="submit">Erase user</button></Link>
                             </div>
                             <br /><br />
                         </div>

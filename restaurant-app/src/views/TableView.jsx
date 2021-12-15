@@ -12,7 +12,6 @@ const TableView = () => {
     const { store, actions } = useContext(Context);
 
     const params = useParams();
-    console.log(params)
 
     useEffect(() => {
         actions.getSingleTable(params.id)
@@ -55,7 +54,7 @@ const TableView = () => {
                                 <hr />
                                 <div className="row">
                                     <div className="col pt-4 text-center">
-                                        <Link className="mx-auto btn btn-success text-center justify-content-around" to="/add-order/table-id" role="button">Add an order</Link>
+                                        <Link className="mx-auto btn btn-success text-center justify-content-around" to={"/add-order/table/" + params.id} role="button">Add an order</Link>
                                     </div>
                                 </div>
                                 {
