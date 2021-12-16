@@ -44,7 +44,7 @@ function App() {
         <MasterRoute exact path="/add-product" component={AddProducts} />
         <MasterRoute exact path="/kitchen-orders" component={KitchenOrders} />
         <MasterRoute exact path="/user-edit/:id" component={UserEdit} />
-        <MasterRoute exact path="/product-edit/:id" component={ProductEdit} />
+        <MasterRoute exact path="/product-edit/:index" component={ProductEdit} />
         <MasterRoute exact path="/table-view/:id" component={TableView} />
         <MasterRoute exact path="/add-order/table/:id" component={AddOrder} />
         <Route exact path="/user/table-id" component={UserMainView} />

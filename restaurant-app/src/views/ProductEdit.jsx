@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 
 const ProductEdit = () => {
 
@@ -10,9 +10,11 @@ const ProductEdit = () => {
 
     const params = useParams();
 
+    const history = useHistory();
+
     const [formData, setFormData] = useState({
-        product_name: "",
-        product_id: params.id,
+        product_name: store.products[params.index].product_name ? store.products[params.index].product_name : "",
+        product_id: params.index,
         product_price: "",
         category_id: "",
         product_description: "",
@@ -33,12 +35,14 @@ const ProductEdit = () => {
         });
     }
 
-    const handleSubmit = (e, history) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (params.id !== undefined){
         actions.editProduct(formData, params.id, history)
     }
     }
+
+    console.log(store.products[params.index])
 
     return (
         <>
@@ -54,10 +58,10 @@ const ProductEdit = () => {
                                 <p className="h4 mb-4 text-center">Edit a Product</p>
 
                                 <label for="textInput">Name of the product</label>
-                                <input type="text" id="productName" name="product_name" className="form-control mb-4" placeholder="Pizza Margharita" onChange={handleChange}>{params.product_name}</input>
+                                <input type="text" id="productName" name="product_name" className="form-control mb-4" value={formData.product_name} onChange={handleChange}>{params.product_name}</input>
 
                                 <label for="textInput">Price</label>
-                                <input type="text" id="productPrice" name="product_price" className="form-control mb-4" placeholder="$ 6.500 clp" onChange={handleChange} />
+                                <input type="text" id="productPrice" name="product_price" className="form-control mb-4" placeholder="$ 6.500 clp" onChange={handleChange}/>
 
                                 <label for="productCategory">Category of the new product:</label><br /><br />
                                 <select className="browser-default custom-select mb-4" name="category_id" id="productCategory" onChange={handleChange}>
@@ -84,7 +88,7 @@ const ProductEdit = () => {
                                         </div>)
                                 }
                                 <div className="d-grid gap-2">
-                                    <Link to="/products"><button className="btn btn-success" type="submit" onClick={handleSubmit}>Save changes</button></Link>
+                                    <button className="btn btn-success" type="submit">Save changes</button>
                                 </div>
                             </form>
                         </div>

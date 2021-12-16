@@ -224,6 +224,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             if (data.accessToken) {
                                 setStore({
                                     accessToken: data.accessToken,
+                                    currentUser: data,
                                     isAuthenticated: true,
                                     email: null,
                                     password: null,
@@ -278,9 +279,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                         await fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
                             headers: {
-                                "Authorization": "Bearer" + store.accessToken
+                                "accept": "*/*",
+                                "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
                             },
                             body: fdata, 
+
                         })
                             .then(resp => resp.json())
                             .then(data => {
@@ -294,6 +297,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                             })
                         history.push("/products");
+                        
                     }
                 } catch (error) {
                     console.log(error)
@@ -328,8 +332,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                                     product_description: null,
                                     is_disable: null,
                                 })
+                                history.push("/products");
                             })
-                        history.push("/products");
+                        
                     }
                 } catch (error) {
                     console.log(error)

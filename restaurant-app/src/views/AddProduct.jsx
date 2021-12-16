@@ -14,7 +14,6 @@ const AddProducts = () => {
         product_price: "",
         product_description: "",
         is_disable: "",
-        aws_path: null,
         uploaded_img: null
     });
 
