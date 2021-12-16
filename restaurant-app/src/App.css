@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
 
 .header_video {
   position: relative;
@@ -140,6 +141,30 @@ td, th{
 
 .card {
   width: 100%;
+}
+
+.sidebar-text {
+  background: #49475b;
+  font-family: "Lobster", cursive;
+}
+.ms-1 {
+  color: white;
+}
+.ms-1:hover {
+  color: #fdf0d5;
+}
+
+h3 {
+  font-family: "Lobster", cursive;
+  color: #c1121f;
+  font-size: 2.5rem;
+}
+
+.lead {
+  background: #fdf0d5;
+  padding: 5px 40px;
+  font-family: 'Satisfy', cursive;
+  font-size: 1.5rem;
 }
 
 /* --carnelian: #c1121fff;

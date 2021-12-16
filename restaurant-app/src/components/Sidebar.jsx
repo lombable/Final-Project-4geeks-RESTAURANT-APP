@@ -12,9 +12,9 @@ const Sidebar = () => {
 
     return (
         <>
-            <div className="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+            <div className="sidebar-text d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start ps-4 pt-4">
                 <Link to="/admin-panel" className="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span className="fs-5 text-dark">i<span className="d-none d-sm-inline text-dark">Menu</span></span>
+                <span className="fs-5" style={{color: "#FDF0D5"}}>i<span className="d-none d-sm-inline" style={{color: "#FDF0D5"}}>Menu</span></span>
                 </Link>
                 <ul className="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
                     <li className="nav-item">
