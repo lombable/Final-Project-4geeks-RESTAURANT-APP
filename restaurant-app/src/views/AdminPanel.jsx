@@ -29,7 +29,7 @@ const AdminPanel = () => {
         <>
             <div className="container-fluid overflow-hidden">
                 <div className="row vh-100 overflow-auto">
-                    <div className="col-4 col-sm-3 col-xl-2 px-sm-2 px-0 bg-light d-flex sticky-top">
+                    <div className="col-4 col-sm-3 col-xl-2 px-sm-2 px-0 bg-light d-flex">
                         <Sidebar />
                     </div>
                     <div className="col-md-8">
