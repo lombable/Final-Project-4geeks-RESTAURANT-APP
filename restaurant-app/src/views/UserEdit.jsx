@@ -1,8 +1,8 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const UserEdit = () => {
 
@@ -12,8 +12,12 @@ const UserEdit = () => {
 
     const params = useParams();
 
+    useEffect(() => {
+        actions.getUsers()
+    }, [])
+
     const [formData, setFormData] = useState({
-        first_name: '',
+        first_name: "",
         last_name: '',
         dob: '',
         city: '',
@@ -23,6 +27,8 @@ const UserEdit = () => {
         password: '',
         phone_number: '',
     });
+
+   
 
     const handleChange = (e) => {
         console.log(e.target.name, e.target.value)
@@ -61,7 +67,7 @@ const UserEdit = () => {
                                 <p className="h4 mb-4 text-center">Edit an user</p>
 
                                 <label for="textInput">First Name</label>
-                                <input type="text" id="productName" name="first_name" className="form-control mb-4" onChange={handleChange} />
+                                <input type="text" id="productName" name="first_name" className="form-control mb-4" value={formData.first_name} onChange={handleChange} />
 
                                 <label for="textInput">Last Name</label>
                                 <input type="text" id="productPrice" name="last_name" className="form-control mb-4" onChange={handleChange} />
@@ -107,7 +113,7 @@ const UserEdit = () => {
                                 <br />
                             </form>
                             <div className="d-grid gap-2">
-                                <Link to="users"><button className="btn btn-danger" type="submit">Erase user</button></Link>
+                                <button className="btn btn-danger" type="submit" onClick={() => actions.deleteUser(history, params.id)}>Erase user</button>
                             </div>
                             <br /><br />
                         </div>

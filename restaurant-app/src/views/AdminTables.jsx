@@ -2,11 +2,15 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../store/appContext";
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 const AdminTables = () => {
 
     const { store, actions } = useContext(Context);
+
+    const history = useHistory();
+
+    const params = useParams();
 
     useEffect(() => {
         actions.getTables()
@@ -15,14 +19,15 @@ const AdminTables = () => {
     const tableRowGenerator = store.tables.map((table, i) => {
         
         return (
-            <tr>
-            <th key={i} scope="row">{table.table_id}</th>
+            <tr key={i}>
+            <th scope="row">{table.table_id}</th>
             <td></td>
             <td></td>
-            <td>X</td>
+            <td><button className="btn btn-danger btn-sm" onClick={() => actions.deleteTable(history, table.table_id)} role="button">X</button></td>
         </tr>
             )
     })
+
     
     return (
         <>

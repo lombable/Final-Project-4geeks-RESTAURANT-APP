@@ -4,12 +4,14 @@ import '../App.css';
 import Navbar from '../components/Navbar'
 import { useState, useContext } from "react";
 import { Context } from '../store/appContext'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 
 const ClientRegister = () => {
 
   const { store, actions } = useContext(Context)
+
+  const history = useHistory();
 
   const [formData, setFormData] = useState({
     first_name: '',
@@ -19,20 +21,12 @@ const ClientRegister = () => {
     rut: '',
     address: '',
     email: '',
-    password: '',
+    password: '', 
     phone_number: '',
     is_admin: false,
   });
 
-  const handleClick = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.checked
-    });
-  }
-
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value)
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -41,7 +35,7 @@ const ClientRegister = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    actions.register_client(formData)
+    actions.register_client(formData, history)
   }
 
   return (

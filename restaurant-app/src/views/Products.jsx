@@ -54,7 +54,7 @@ const Products = () => {
                                                 <th scope="col">Edit</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody className="shadow-lg p-3 mb-5 bg-body rounded">
                                             {productGenerator}
                                         </tbody>
                                     </table>

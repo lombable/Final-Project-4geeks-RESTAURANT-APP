@@ -23,7 +23,7 @@ const TableCreation = () => {
         });
     }
 
-    const onSubmit = (e, history) => {
+    const onSubmit = (e) => {
         e.preventDefault();
         actions.addTable(formData, history);
     }

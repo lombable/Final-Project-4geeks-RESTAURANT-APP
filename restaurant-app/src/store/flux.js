@@ -68,6 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 });
                 sessionStorage.removeItem('isAuthenticated');
                 sessionStorage.removeItem('accessToken');
+                sessionStorage.removeItem('first_name');
                 history.push('/')
             },
 
@@ -182,9 +183,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                                     bills_id: null,
                                     error: null,
                                 })
-
+                                history.push("/admin-panel");
                             })
-                        history.push("/admin-panel");
+                        
                     }
                 } catch (error) {
                     console.log(error)
@@ -192,10 +193,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
 
-            addOrder: (shoppingCart, id) => {
+            addOrder: async (shoppingCart, id) => {
+                console.log(shoppingCart)
                 try {
                     const store = getStore();
-                    fetch(store.path + '/profile/api/v1/orders/', {
+                   await fetch(store.path + '/profile/api/v1/orders', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer" + store.accessToken
+                        },
+                        body: JSON.stringify(shoppingCart, id),
+                    })
+                        .then(resp => resp.json())
+                }
+                catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+                        addOrder: async (shoppingCart, id) => {
+                console.log(shoppingCart)
+                try {
+                    const store = getStore();
+                   await fetch(store.path + '/profile/api/v1/orders', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
@@ -232,6 +254,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
 
                                 sessionStorage.setItem('isAuthenticated', true)
+                                sessionStorage.setItem('first_name', store.currentUser.first_name)
                                 sessionStorage.setItem('accessToken', store.accessToken)
                                 history.push("/admin-panel");
                             } else {
@@ -268,7 +291,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             error: "Debe completar todos los campos"
                         })
                     } else {
-                        
+                        console.log(fdata)
                         fdata.append("product_name", formData.product_name)
                         fdata.append("category_id", formData.category_id)
                         fdata.append("product_description", formData.product_description)
@@ -294,9 +317,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                                     product_description: null,
                                     is_disable: null,
                                 })
-
+                                history.push("/products");
                             })
-                        history.push("/products");
+                        
                         
                     }
                 } catch (error) {
@@ -364,8 +387,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                             .then(resp => resp.json())
                             .then(setStore({
                                 error: null,
-                            }))
-                        history.push("/users");
+                            }),
+                            history.push("/users")
+                            )
+                       
                     }
                 } catch (error) {
                     console.log(error)
@@ -373,7 +398,77 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
 
-            register_client: async (formData) => {
+            deleteUser: async (history, id) => {
+
+                try {
+                    const store = getStore();
+                        await fetch(store.path + '/profile/api/v1/users/' + id, {
+                            method: 'DELETE',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(history, id),
+                        })
+                            .then(resp => resp.json())
+                            .then(setStore({
+                                error: null,
+                            }),
+                            history.push("/users")
+                            )
+                       
+                    }
+                  catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            deleteTable: async (history, table_id) => {
+
+                try {
+                    const store = getStore();
+                        await fetch(store.path + '/profile/api/v1/tables/' + table_id, {
+                            method: 'DELETE',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(history, table_id),
+                        })
+                            .then(resp => resp.json())
+                            .then(setStore({
+                                error: null,
+                            }),
+                            history.push("/admin-panel/")
+                            )
+                            history.push("/admin-panel/")
+                       
+                    }
+                  catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            deleteProduct: async (history, index) => {
+                try {
+                    const store = getStore();
+                        await fetch(store.path + '/profile/api/v1/products/' + index, {
+                            method: 'DELETE',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(history, index),
+                        })
+                            .then(resp => resp.json())
+                            .then(setStore({
+                                error: null,
+                            }),
+                            history.push("/products/")
+                            )
+                            history.push("/products/")
+                       
+                    }
+                  catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            register_client: async (formData, history) => {
 
                 try {
                     const store = getStore();
@@ -406,6 +501,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                     address: null,
 
                                 })
+                                history.push("/login");
                             })
                     }
                 } catch (error) {

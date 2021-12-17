@@ -15,10 +15,10 @@ const ProductEdit = () => {
     const [formData, setFormData] = useState({
         product_name: store.products[params.index].product_name ? store.products[params.index].product_name : "",
         product_id: params.index,
-        product_price: "",
-        category_id: "",
-        product_description: "",
-        is_disable: false,
+        product_price: store.products[params.index].product_price ? store.products[params.index].product_price : "",
+        category_id: store.products[params.index].category_id ? store.products[params.index].category_id : "",
+        product_description: store.products[params.index].product_description ? store.products[params.index].product_description : "",
+        is_disable: store.products[params.index].is_disable ? store.products[params.index].is_disable : "",
     });
 
     const handleChange = (e) => {
@@ -42,8 +42,6 @@ const ProductEdit = () => {
     }
     }
 
-    console.log(store.products[params.index])
-
     return (
         <>
             <div className="container-fluid overflow-hidden">
@@ -61,10 +59,10 @@ const ProductEdit = () => {
                                 <input type="text" id="productName" name="product_name" className="form-control mb-4" value={formData.product_name} onChange={handleChange}>{params.product_name}</input>
 
                                 <label for="textInput">Price</label>
-                                <input type="text" id="productPrice" name="product_price" className="form-control mb-4" placeholder="$ 6.500 clp" onChange={handleChange}/>
+                                <input type="text" id="productPrice" name="product_price" className="form-control mb-4" value={formData.product_price} placeholder="$ 6.500 clp" onChange={handleChange}/>
 
                                 <label for="productCategory">Category of the new product:</label><br /><br />
-                                <select className="browser-default custom-select mb-4" name="category_id" id="productCategory" onChange={handleChange}>
+                                <select className="browser-default custom-select mb-4" name="category_id" id="productCategory" value={formData.category_id} onChange={handleChange}>
                                     <option value="" disabled="">Category</option>
                                     <option value="1">Drinks</option>
                                     <option value="2">Pizzas</option>
@@ -75,7 +73,7 @@ const ProductEdit = () => {
                                 </select>
                                 <br />
                                 <label for="textarea">Description of the product</label>
-                                <textarea id="textarea" className="form-control mb-4" name="product_description" placeholder="Description" onChange={handleChange}></textarea>
+                                <textarea id="textarea" className="form-control mb-4" name="product_description" placeholder="Description" value={formData.product_description} onChange={handleChange}></textarea>
 
                                 <div className="custom-control custom-checkbox mb-4">
                                     <input type="checkbox" className="custom-control-input" checked={formData.is_disable} name="is_disable" onClick={handleClick} id="checkbox" />
@@ -89,7 +87,10 @@ const ProductEdit = () => {
                                 }
                                 <div className="d-grid gap-2">
                                     <button className="btn btn-success" type="submit">Save changes</button>
-                                </div>
+                                </div> <br/>
+                                <div className="d-grid gap-2">
+                                <button className="btn btn-danger" type="submit" onClick={() => actions.deleteProduct(history, params.index)}>Erase product</button>
+                            </div>
                             </form>
                         </div>
                     </div>

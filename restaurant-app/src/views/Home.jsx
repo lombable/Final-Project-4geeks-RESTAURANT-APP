@@ -46,9 +46,9 @@ const Home = () => {
                     <div className="container h-100">
                         <div className="d-flex h-100 text-center align-items-center">
                             <div className="w-100 text-white"><h1 className="display-3">Welcome to our restaurant!</h1>
-                                <p className="lead mb-0">If you are a client, then enter the number of the table you are currently sitting in so you can take a look at our menu.
+                                <p className="lead-home mb-0">If you are a client, then enter the number of the table you are currently sitting in so you can take a look at our menu.
                                 </p>
-                                <p className="lead pt-5 mt-5">
+                                <p className="lead-home pt-5 mt-5">
                                     <Link className="btn btn-secondary" to="/client-login">I already have a table</Link>
                                 </p>
                             </div>

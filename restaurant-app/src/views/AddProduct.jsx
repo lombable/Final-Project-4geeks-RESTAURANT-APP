@@ -23,7 +23,6 @@ const AddProducts = () => {
     }
     
     const handleChange = (e) => {
-        console.log(e.target.name, e.target.value)
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -38,7 +37,6 @@ const AddProducts = () => {
     }
 
     const handleSubmit = (e) => {
-        console.log(formData)
         e.preventDefault();
         actions.addProduct(formData)
     }

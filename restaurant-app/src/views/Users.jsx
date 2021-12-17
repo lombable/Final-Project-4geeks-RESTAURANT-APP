@@ -2,19 +2,21 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../store/appContext";
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Users = () => {
 
     const { store, actions } = useContext(Context);
 
+    const params = useParams();
+
     useEffect(() => {
         actions.getUsers()
     }, [])
 
-    const tableRowGenerator = store.users.map((user) => {
+    const tableRowGenerator = store.users.map((user, i) => {
         return (
-            <tr>
+            <tr key={i}>
                 <th scope="row">{user.email}</th>
                 <td>{user.first_name}</td>
                 <td>{user.last_name}</td>

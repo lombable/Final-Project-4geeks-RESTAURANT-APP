@@ -20,7 +20,7 @@ const KitchenOrders = () => {
     const orderGenerator = store.orders.map((order) => {
         return (
             <div className="col-sm-4 py-2 mt-5">
-                <div className="card py-3 text-center">
+                <div className="card py-3 text-center shadow-lg p-3 mb-5 bg-body rounded">
                     <div className="card-header">
                         Table number {order.table_id}
                     </div>

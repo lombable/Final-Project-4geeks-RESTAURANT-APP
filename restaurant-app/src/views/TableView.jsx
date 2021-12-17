@@ -17,7 +17,7 @@ const TableView = () => {
         actions.getSingleTable(params.id)
     }, [])
 
-    TimeAgo.addDefaultLocale(en)
+    TimeAgo.addLocale(en)
 
     const orderGenerator = store.singleTable?.requested_products.map((order, i) => {
         return (

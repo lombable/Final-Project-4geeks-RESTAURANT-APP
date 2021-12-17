@@ -20,7 +20,6 @@ const AddOrder = () => {
 
         let addProduct = shoppingCart.concat(newProduct)
         setShoppingCart(addProduct)
-        console.log(shoppingCart)
     }
 
     const { store, actions } = useContext(Context);

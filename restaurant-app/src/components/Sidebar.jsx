@@ -42,7 +42,7 @@ const Sidebar = () => {
                 <div className="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
                     <Link to="#" className="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="hugenerd" width="28" height="28" className="rounded-circle" />
-                        <span className="d-none d-sm-inline mx-1"> {store.currentUser?.first_name}</span>
+                        <span className="d-none d-sm-inline mx-1">{sessionStorage.getItem("first_name")}</span>
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
                         <li><Link className="nav-link px-sm-0 px-2" onClick={() => actions.logout(history)}> <i className="dropdown-item" >Sign out</i></Link></li>
