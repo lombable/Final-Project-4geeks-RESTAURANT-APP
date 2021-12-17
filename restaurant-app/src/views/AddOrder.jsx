@@ -106,7 +106,7 @@ const AddOrder = () => {
                                     <div className="accordion" id="accordionExample">
                                         {accordionHeaderGenerator}
                                     </div>
-                                </div>
+                                </div><br/><br/>
                                 <div className="row lead">
                                     <br />In the shopping cart:
                                 </div>
@@ -127,7 +127,7 @@ const AddOrder = () => {
                                                                 {productsOnCart}
                                                             </div>
                                                             :
-                                                            <h1>No products added. Add some!</h1>
+                                                            <h3>No products added. Add some!</h3>
                                                     }
                                                 </div>
                                             </div>

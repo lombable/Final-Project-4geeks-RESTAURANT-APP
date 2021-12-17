@@ -22,7 +22,7 @@ const TableView = () => {
     const orderGenerator = store.singleTable?.requested_products.map((order, i) => {
         return (
             <div className="col-sm-4 py-2 mt-5" key={i}>
-                <div className="card py-3 text-center">
+                <div className="card text-center ">
                     <div className="card-header">
                         Table number {order.table_id}
                     </div>
@@ -63,7 +63,9 @@ const TableView = () => {
                                             {orderGenerator}
                                         </div>
                                         :
-                                        <h1>No pending products</h1>
+                                        <div className="text-center"><br/><br/>
+                                        <h3>No pending products</h3>
+                                        </div>
                             }
 
                             </main>

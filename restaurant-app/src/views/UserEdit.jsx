@@ -26,6 +26,7 @@ const UserEdit = () => {
         email: '',
         password: '',
         phone_number: '',
+        error: null,
     });
 
    

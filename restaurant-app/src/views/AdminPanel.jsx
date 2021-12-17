@@ -15,7 +15,7 @@ const AdminPanel = () => {
 
     const tableGenerator = store.tables.map((table, i) => {
         return (
-            <Link to={"/table-view/" + table.table_id} key={i} className="col-sm-4 py-2 mt-5">
+            <Link to={"/table-view/" + table.table_id} key={i} className="col-sm-4 py-2 mt-5" style={{textDecoration: "none", color: "black"}}>
                 <div className="card text-center shadow-lg p-3 mb-5 bg-body rounded">
                     <img src="../img/restaurant-table.jpg" className="card-img-top mx-auto tablesimg" alt="table" />
                     <div className="card-body">

@@ -12,13 +12,15 @@ const ProductEdit = () => {
 
     const history = useHistory();
 
+    let currentProduct = store.products?.find((product) => product.product_id == params.id)
+
     const [formData, setFormData] = useState({
-        product_name: store.products[params.index].product_name ? store.products[params.index].product_name : "",
-        product_id: params.index,
-        product_price: store.products[params.index].product_price ? store.products[params.index].product_price : "",
-        category_id: store.products[params.index].category_id ? store.products[params.index].category_id : "",
-        product_description: store.products[params.index].product_description ? store.products[params.index].product_description : "",
-        is_disable: store.products[params.index].is_disable ? store.products[params.index].is_disable : "",
+        product_name: currentProduct.product_name,
+        product_id: params.id,
+        product_price: currentProduct.product_price,
+        category_id: currentProduct.category_id,
+        product_description: currentProduct.product_description,
+        is_disable: currentProduct.is_disable,
     });
 
     const handleChange = (e) => {
@@ -51,7 +53,7 @@ const ProductEdit = () => {
                     </div>
                     <div className="col-md-8">
                         <div className="mx-4 col d-flex flex-column h-sm-100">
-                            <form className="border border-light pt-5" onSubmit={handleSubmit}>
+                            <form className="border border-light pt-5" onSubmit={() => handleSubmit(formData, params.id, history)}>
 
                                 <p className="h4 mb-4 text-center">Edit a Product</p>
 

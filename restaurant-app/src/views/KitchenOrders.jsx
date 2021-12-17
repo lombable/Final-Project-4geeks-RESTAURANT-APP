@@ -5,13 +5,17 @@ import { Context } from "../store/appContext";
 import ReactTimeAgo from 'react-time-ago'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
-import { Link } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 const KitchenOrders = () => {
 
     TimeAgo.addDefaultLocale(en)
 
     const { store, actions } = useContext(Context);
+
+    const history = useHistory();
+
+    const params = useParams();
 
     useEffect(() => {
         actions.getOrders()
@@ -20,7 +24,7 @@ const KitchenOrders = () => {
     const orderGenerator = store.orders.map((order) => {
         return (
             <div className="col-sm-4 py-2 mt-5">
-                <div className="card py-3 text-center shadow-lg p-3 mb-5 bg-body rounded">
+                <div className="card text-center">
                     <div className="card-header">
                         Table number {order.table_id}
                     </div>
@@ -32,6 +36,9 @@ const KitchenOrders = () => {
                     </div>
                     <div className="card-footer text-muted">
                         Order created <ReactTimeAgo date={order.order_created} locale="en-US"/>
+                    </div>
+                    <div className="card-footer text-muted">
+                        <button type="button" class="btn btn-success btn-sm" onClick={() => actions.deleteOrder(history, order.order_id)}>Mark as delivered</button>
                     </div>
                 </div>
             </div>)

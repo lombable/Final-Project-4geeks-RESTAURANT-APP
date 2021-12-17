@@ -47,7 +47,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
 
                         setStore({
-                            users: data.users
+                            users: data.users,
+                            error: null
                         })
 
                     })
@@ -85,7 +86,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
 
                         setStore({
-                            tables: data.tables
+                            tables: data.tables,
+                            error: null
                         })
 
                     })
@@ -98,7 +100,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
 
                         setStore({
-                            singleTable: data
+                            singleTable: data,
+                            error: null
                         })
 
                     })
@@ -117,7 +120,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
 
                         setStore({
-                            categories: data.category
+                            categories: data.category,
+                            error: null
                         })
 
                     })
@@ -136,7 +140,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
 
                         setStore({
-                            orders: data.orders
+                            orders: data.orders,
+                            error: null
                         })
 
                     })
@@ -155,7 +160,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
 
                         setStore({
-                            products: data.products
+                            products: data.products,
+                            error: null
                         })
 
                     })
@@ -283,7 +289,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             addProduct: async (formData, history) => {
-                let fdata = new FormData()
+                let fdata = new FormData({})
                 try {
                     const store = getStore();
                     if (!formData.product_name || !formData.category_id || !formData.product_price || !formData.product_description) {
@@ -291,7 +297,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                             error: "Debe completar todos los campos"
                         })
                     } else {
-                        console.log(fdata)
                         fdata.append("product_name", formData.product_name)
                         fdata.append("category_id", formData.category_id)
                         fdata.append("product_description", formData.product_description)
@@ -329,7 +334,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             editProduct: async (formData, id, history) => {
-
                 try {
                     const store = getStore();
                     if (!formData.product_name || !formData.category_id || !formData.product_price || !formData.product_description) {
@@ -431,13 +435,38 @@ const getState = ({ getStore, getActions, setStore }) => {
                             body: JSON.stringify(history, table_id),
                         })
                             .then(resp => resp.json())
-                            .then(setStore({
-                                error: null,
-                            }),
-                            history.push("/admin-panel/")
-                            )
-                            history.push("/admin-panel/")
-                       
+                            .then(data => {
+                                setStore({
+                                error: data.msg,
+                            })},
+                            )            
+                            .then(
+                                history.push("/admin-tables/"))           
+                    }
+                  catch (error) {
+                    console.log(error)
+                }
+
+            },
+
+            deleteOrder: async (history, id) => {
+
+                try {
+                    const store = getStore();
+                        await fetch(store.path + '/profile/api/v1/orders/' + id, {
+                            method: 'DELETE',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(history, id),
+                        })
+                            .then(resp => resp.json())
+                            .then(data => {
+                                setStore({
+                                error: data.msg,
+                            })},
+                            )            
+                            .then(
+                                history.push("/kitchen-orders/"))
+                                window.location.reload();          
                     }
                   catch (error) {
                     console.log(error)

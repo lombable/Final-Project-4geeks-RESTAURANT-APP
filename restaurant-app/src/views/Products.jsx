@@ -20,7 +20,7 @@ const Products = () => {
                 <td>{product.product_price}</td>
                 <td>{product.category_id}</td>
                 <td>{product.is_disable ? "✓" : "X"}</td>
-                <td><Link className="btn btn-primary btn-sm" to={"/product-edit/" + i} role="button">Edit</Link></td>
+                <td><Link className="btn btn-primary btn-sm" to={"/product-edit/" + product.product_id} role="button">Edit</Link></td>
             </tr>)
     })
 
