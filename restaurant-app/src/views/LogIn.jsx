@@ -26,7 +26,6 @@ const Login = () => {
     }
 
     const handleSubmit = (e) => {
-        console.log(formData)
         e.preventDefault();
         actions.login(formData, history)
     }

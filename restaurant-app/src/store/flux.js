@@ -200,7 +200,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             addOrder: async (shoppingCart, id) => {
-                console.log(shoppingCart)
+
                 try {
                     const store = getStore();
                     await fetch(store.path + '/profile/api/v1/orders', {
@@ -220,7 +220,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             addOrder: async (shoppingCart, id) => {
-                console.log(shoppingCart)
                 try {
                     const store = getStore();
                     await fetch(store.path + '/profile/api/v1/orders', {
@@ -303,7 +302,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                         // fdata.append("is_disable", formData.is_disable)
                         // fdata.append("file", formData.uploaded_img)
 
-                        console.log(formData, "despues del append")
                         await fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
                             headers: {
@@ -481,7 +479,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             deleteProduct: (history, id) => {
-                console.log(id, "consolelog de fetch")
                 try {
                     const store = getStore();
                     fetch(store.path + '/profile/api/v1/products/' + id, {

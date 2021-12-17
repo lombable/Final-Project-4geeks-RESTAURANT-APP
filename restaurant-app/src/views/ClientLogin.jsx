@@ -16,7 +16,7 @@ const ClientLogin = () => {
             ...setTable_Id,
           table_id : e.target.value,
           
-        }, console.log(table_id));
+        },);
       }
 
 
