@@ -6,7 +6,7 @@ const Navbar = () => {
 		<nav className="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
 			<div className="container-fluid">
 				<a className="navbar-brand" href="/home">
-					RestaurantApp
+					iMenu
 				</a>
 				<button
 					className="navbar-toggler"

@@ -14,14 +14,19 @@ const ClientLogin = () => {
 
         setTable_Id({
             ...setTable_Id,
-          table_id : e.target.value,
+          [e.target.name] : [e.target.value],
           
         },);
       }
 
+      const onSubmit = (e) => {
+          e.preventDefault();
+          history.push("/" + table_id)
+      }
+
 
     return (<section className="vh-100 gradient-custom">
-        <form className="container py-5 h-100">
+        <form className="container py-5 h-100" onSubmit={() => onSubmit(table_id, history)}>
             <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
