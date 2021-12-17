@@ -14,18 +14,18 @@ const AddProducts = () => {
         product_price: "",
         product_description: "",
         is_disable: "",
-        uploaded_img: null
+        aws_path: null,
     });
 
-    const handleImg = (e) => {
-        let uploaded_img = e.target.files[0]
-        setFormData({...formData, uploaded_img})
-    }
+    // const handleImg = (e) => {
+    //     let uploaded_img = e.target.files[0]
+    //     setFormData({...formData, uploaded_img})
+    // }
     
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name] : e.target.value
         });
     }
 
@@ -82,7 +82,9 @@ const AddProducts = () => {
 
                                 {/* Upload an image button */}
                                 <label for="formFileSm" className="form-label">Upload an image</label> 
-                                <input class="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" onChange={handleImg}/><br/><br/>
+                                <input class="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" 
+                                // onChange={(e) => handleImg(e)}
+                                /><br/><br/>
                                 
                                 {
                                     store.error !== null && (

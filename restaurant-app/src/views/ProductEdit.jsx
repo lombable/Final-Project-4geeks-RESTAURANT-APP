@@ -15,12 +15,12 @@ const ProductEdit = () => {
     let currentProduct = store.products?.find((product) => product.product_id == params.id)
 
     const [formData, setFormData] = useState({
-        product_name: currentProduct.product_name,
+        product_name: currentProduct?.product_name ? currentProduct.product_name : "",
         product_id: params.id,
-        product_price: currentProduct.product_price,
-        category_id: currentProduct.category_id,
-        product_description: currentProduct.product_description,
-        is_disable: currentProduct.is_disable,
+        product_price: currentProduct?.product_price ? currentProduct.product_price : "",
+        category_id: currentProduct?.product_category_id ? currentProduct.product_category_id : "",
+        product_description: currentProduct?.product_description ? currentProduct.product_description : "",
+        is_disable: currentProduct?.is_disable ? currentProduct.is_disable : "",
     });
 
     const handleChange = (e) => {
@@ -37,11 +37,9 @@ const ProductEdit = () => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e, formData, id, history) => {
         e.preventDefault();
-        if (params.id !== undefined){
-        actions.editProduct(formData, params.id, history)
-    }
+        actions.editProduct(formData, id, history)
     }
 
     return (
@@ -53,7 +51,7 @@ const ProductEdit = () => {
                     </div>
                     <div className="col-md-8">
                         <div className="mx-4 col d-flex flex-column h-sm-100">
-                            <form className="border border-light pt-5" onSubmit={() => handleSubmit(formData, params.id, history)}>
+                            <form className="border border-light pt-5" onSubmit={(e) => handleSubmit(e, formData, params.id, history)}>
 
                                 <p className="h4 mb-4 text-center">Edit a Product</p>
 
@@ -61,7 +59,7 @@ const ProductEdit = () => {
                                 <input type="text" id="productName" name="product_name" className="form-control mb-4" value={formData.product_name} onChange={handleChange}>{params.product_name}</input>
 
                                 <label for="textInput">Price</label>
-                                <input type="text" id="productPrice" name="product_price" className="form-control mb-4" value={formData.product_price} placeholder="$ 6.500 clp" onChange={handleChange}/>
+                                <input type="text" id="productPrice" name="product_price" className="form-control mb-4" value={formData.product_price} placeholder="$ 6.500 clp" onChange={handleChange} />
 
                                 <label for="productCategory">Category of the new product:</label><br /><br />
                                 <select className="browser-default custom-select mb-4" name="category_id" id="productCategory" value={formData.category_id} onChange={handleChange}>
@@ -89,11 +87,11 @@ const ProductEdit = () => {
                                 }
                                 <div className="d-grid gap-2">
                                     <button className="btn btn-success" type="submit">Save changes</button>
-                                </div> <br/>
+                                </div> <br />
                                 <div className="d-grid gap-2">
-                                <button className="btn btn-danger" type="submit" onClick={() => actions.deleteProduct(history, params.index)}>Erase product</button>
-                            </div>
+                                </div>
                             </form>
+                            <button className="btn btn-danger" type="submit" onClick={() => actions.deleteProduct(history, currentProduct.product_id)}>Erase product</button>
                         </div>
                     </div>
                 </div>

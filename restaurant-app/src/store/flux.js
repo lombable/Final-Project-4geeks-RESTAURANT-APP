@@ -191,7 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
                                 history.push("/admin-panel");
                             })
-                        
+
                     }
                 } catch (error) {
                     console.log(error)
@@ -203,7 +203,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log(shoppingCart)
                 try {
                     const store = getStore();
-                   await fetch(store.path + '/profile/api/v1/orders', {
+                    await fetch(store.path + '/profile/api/v1/orders', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
@@ -219,11 +219,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             },
 
-                        addOrder: async (shoppingCart, id) => {
+            addOrder: async (shoppingCart, id) => {
                 console.log(shoppingCart)
                 try {
                     const store = getStore();
-                   await fetch(store.path + '/profile/api/v1/orders', {
+                    await fetch(store.path + '/profile/api/v1/orders', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
@@ -289,7 +289,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             addProduct: async (formData, history) => {
-                let fdata = new FormData({})
+                // let fdata = new FormData({})
                 try {
                     const store = getStore();
                     if (!formData.product_name || !formData.category_id || !formData.product_price || !formData.product_description) {
@@ -297,20 +297,24 @@ const getState = ({ getStore, getActions, setStore }) => {
                             error: "Debe completar todos los campos"
                         })
                     } else {
-                        fdata.append("product_name", formData.product_name)
-                        fdata.append("category_id", formData.category_id)
-                        fdata.append("product_description", formData.product_description)
-                        fdata.append("is_disable", formData.is_disable)
-                        fdata.append("file", formData.uploaded_img)
+                        // fdata.append("product_name", formData.product_name)
+                        // fdata.append("category_id", formData.category_id)
+                        // fdata.append("product_description", formData.product_description)
+                        // fdata.append("is_disable", formData.is_disable)
+                        // fdata.append("file", formData.uploaded_img)
 
-                        console.log(fdata)
+                        console.log(formData, "despues del append")
                         await fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
                             headers: {
-                                "accept": "*/*",
+                                "Content-Type": "application/json",
                                 "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
                             },
-                            body: fdata, 
+                            // headers: {
+                            //     "accept": "*/*",
+
+                            // },
+                            body: JSON.stringify(formData),
 
                         })
                             .then(resp => resp.json())
@@ -324,8 +328,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
                                 history.push("/products");
                             })
-                        
-                        
+
+
                     }
                 } catch (error) {
                     console.log(error)
@@ -361,7 +365,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 })
                                 history.push("/products");
                             })
-                        
+
                     }
                 } catch (error) {
                     console.log(error)
@@ -392,9 +396,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                             .then(setStore({
                                 error: null,
                             }),
-                            history.push("/users")
+                                history.push("/users")
                             )
-                       
+
                     }
                 } catch (error) {
                     console.log(error)
@@ -406,20 +410,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 try {
                     const store = getStore();
-                        await fetch(store.path + '/profile/api/v1/users/' + id, {
-                            method: 'DELETE',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(history, id),
-                        })
-                            .then(resp => resp.json())
-                            .then(setStore({
-                                error: null,
-                            }),
+                    await fetch(store.path + '/profile/api/v1/users/' + id, {
+                        method: 'DELETE',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(history, id),
+                    })
+                        .then(resp => resp.json())
+                        .then(setStore({
+                            error: null,
+                        }),
                             history.push("/users")
-                            )
-                       
-                    }
-                  catch (error) {
+                        )
+
+                }
+                catch (error) {
                     console.log(error)
                 }
 
@@ -429,21 +433,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 try {
                     const store = getStore();
-                        await fetch(store.path + '/profile/api/v1/tables/' + table_id, {
-                            method: 'DELETE',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(history, table_id),
-                        })
-                            .then(resp => resp.json())
-                            .then(data => {
-                                setStore({
+                    await fetch(store.path + '/profile/api/v1/tables/' + table_id, {
+                        method: 'DELETE',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(history, table_id),
+                    })
+                        .then(resp => resp.json())
+                        .then(data => {
+                            setStore({
                                 error: data.msg,
-                            })},
-                            )            
-                            .then(
-                                history.push("/admin-tables/"))           
-                    }
-                  catch (error) {
+                            })
+                        },
+                        )
+                        .then(
+                            history.push("/admin-tables/"))
+                }
+                catch (error) {
                     console.log(error)
                 }
 
@@ -453,45 +458,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 try {
                     const store = getStore();
-                        await fetch(store.path + '/profile/api/v1/orders/' + id, {
-                            method: 'DELETE',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(history, id),
-                        })
-                            .then(resp => resp.json())
-                            .then(data => {
-                                setStore({
+                    await fetch(store.path + '/profile/api/v1/orders/' + id, {
+                        method: 'DELETE',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(history, id),
+                    })
+                        .then(resp => resp.json())
+                        .then(data => {
+                            setStore({
                                 error: data.msg,
-                            })},
-                            )            
-                            .then(
-                                history.push("/kitchen-orders/"))
-                                window.location.reload();          
-                    }
-                  catch (error) {
+                            })
+                        },
+                        )
+                        .then(
+                            history.push("/kitchen-orders/"))
+                    window.location.reload();
+                }
+                catch (error) {
                     console.log(error)
                 }
 
             },
 
-            deleteProduct: async (history, index) => {
+            deleteProduct: (history, id) => {
+                console.log(id, "consolelog de fetch")
                 try {
                     const store = getStore();
-                        await fetch(store.path + '/profile/api/v1/products/' + index, {
-                            method: 'DELETE',
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(history, index),
-                        })
-                            .then(resp => resp.json())
-                            .then(setStore({
-                                error: null,
-                            }),
+                    fetch(store.path + '/profile/api/v1/products/' + id, {
+                        method: 'DELETE',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(history, id),
+                    })
+                        .then(resp => resp.json())
+                        .then(setStore({
+                            error: null,
+                        }),
                             history.push("/products/")
-                            )
-                            history.push("/products/")
-                       
-                    }
-                  catch (error) {
+                        )
+                }
+                catch (error) {
                     console.log(error)
                 }
 
