@@ -2,11 +2,13 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const AddProducts = () => {
 
     const { actions, store } = useContext(Context);
+
+    const history = useHistory();
 
     const [formData, setFormData] = useState({
         product_name: "",
@@ -14,18 +16,18 @@ const AddProducts = () => {
         product_price: "",
         product_description: "",
         is_disable: "",
-        aws_path: null,
+        uploaded_img: null,
     });
 
-    // const handleImg = (e) => {
-    //     let uploaded_img = e.target.files[0]
-    //     setFormData({...formData, uploaded_img})
-    // }
-    
+    const handleImg = (e) => {
+        let uploaded_img = e.target.files[0]
+        setFormData({ ...formData, uploaded_img })
+    }
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -38,7 +40,7 @@ const AddProducts = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        actions.addProduct(formData)
+        actions.addProduct(formData, history)
     }
 
     return (
@@ -78,14 +80,13 @@ const AddProducts = () => {
                                     <input type="checkbox" className="custom-control-input" checked={formData.is_disable} name="is_disable" onClick={handleClick} id="checkbox" />
                                     <label className="custom-control-label" for="checkbox"> Is it available right now?</label>
                                 </div>
-                                
+
 
                                 {/* Upload an image button */}
-                                <label for="formFileSm" className="form-label">Upload an image</label> 
-                                <input class="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" 
-                                // onChange={(e) => handleImg(e)}
-                                /><br/><br/>
-                                
+                                <label for="formFileSm" className="form-label">Upload an image</label>
+                                <input className="form-control form-control-sm" id="formFileSm" type="file" accept="image/*" onChange={(e) => handleImg(e)} />
+                                <br /><br />
+
                                 {
                                     store.error !== null && (
                                         <div className="alert alert-danger" role="alert">

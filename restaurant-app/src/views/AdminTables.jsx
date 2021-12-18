@@ -69,8 +69,8 @@ const AdminTables = () => {
                                             store.error !== null && (
                                                 <div className="alert alert-success text-center alert-dismissible fade show" role="alert">
                                                     
-                                                        <i class="fas fa-check-circle"></i>    {store.error}
-                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        <i className="fas fa-check-circle"></i>    {store.error}
+                                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                   
                                                 </div>)
                                         }

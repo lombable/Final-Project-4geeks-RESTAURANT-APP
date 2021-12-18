@@ -287,32 +287,29 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            addProduct: async (formData, history) => {
-                // let fdata = new FormData({})
+            addProduct: async (data, history) => {
+                let fdata = new FormData()
                 try {
                     const store = getStore();
-                    if (!formData.product_name || !formData.category_id || !formData.product_price || !formData.product_description) {
+                    if (!data.product_name || !data.category_id || !data.product_price || !data.product_description) {
                         setStore({
                             error: "Debe completar todos los campos"
                         })
                     } else {
-                        // fdata.append("product_name", formData.product_name)
-                        // fdata.append("category_id", formData.category_id)
-                        // fdata.append("product_description", formData.product_description)
-                        // fdata.append("is_disable", formData.is_disable)
-                        // fdata.append("file", formData.uploaded_img)
-
+                        fdata.append("product_name", data.product_name)
+                        fdata.append("product_price", data.product_price)
+                        fdata.append("category_id", data.category_id)
+                        fdata.append("product_description", data.product_description)
+                        fdata.append("is_disable", data.is_disable)
+                        fdata.append("file", data.uploaded_img)
+                        
                         await fetch(store.path + '/profile/api/v1/products', {
                             method: 'POST',
                             headers: {
-                                "Content-Type": "application/json",
+                                "accept": "*/*",
                                 "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
                             },
-                            // headers: {
-                            //     "accept": "*/*",
-
-                            // },
-                            body: JSON.stringify(formData),
+                            body: fdata,
 
                         })
                             .then(resp => resp.json())

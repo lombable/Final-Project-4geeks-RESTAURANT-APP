@@ -38,7 +38,7 @@ const KitchenOrders = () => {
                         Order created <ReactTimeAgo date={order.order_created} locale="en-US"/>
                     </div>
                     <div className="card-footer text-muted">
-                        <button type="button" class="btn btn-success btn-sm" onClick={() => actions.deleteOrder(history, order.order_id)}>Mark as delivered</button>
+                        <button type="button" className="btn btn-success btn-sm" onClick={() => actions.deleteOrder(history, order.order_id)}>Mark as delivered</button>
                     </div>
                 </div>
             </div>)
