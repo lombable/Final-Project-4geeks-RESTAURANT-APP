@@ -19,7 +19,7 @@ const AdminPanel = () => {
                 <div className="card text-center shadow-lg p-3 mb-5 bg-body rounded">
                     <img src="../img/restaurant-table.jpg" className="card-img-top mx-auto tablesimg" alt="table" />
                     <div className="card-body">
-                        <p className="card-text text-center align-center">Mesa número {table.table_id}</p>
+                        <p className="card-text text-center align-center">Table number {table.table_id}</p>
                     </div>
                 </div>
             </Link>)

@@ -102,15 +102,18 @@ const AddOrder = () => {
                                 <p className="lead">Here you can add order to a specific table.</p>
                                 <hr />
 
-                                <div className="row">
-                                    <div className="accordion" id="accordionExample">
+                                <div className="row py-0">
+                                    <div className="accordion py-0" id="accordionExample">
                                         {accordionHeaderGenerator}
-                                    </div>
-                                </div><br/><br/>
-                                <div className="row lead">
-                                    <br />In the shopping cart:
+                                    </div><br/>
                                 </div>
-                                <br /><br /><br />
+                                
+                               
+                                
+                                <div className="row lead">
+                                    In the shopping cart:
+                                </div>
+                                <br />
                                 <div className="row">
                                     <div className="accordion" id="accordionExample2">
                                         <div className="accordion-item">
@@ -136,9 +139,10 @@ const AddOrder = () => {
                                 </div>
                                 <br />
                                 <div className="row">
-                                    <div className="col pt-4 text-center">
+                                    <div className="col pt-4 text-center py-3">
                                         <Link className="mx-auto btn btn-success text-center justify-content-around" onClick={() => handleClickConsole(shoppingCart)} to={"/table-view/" + params.id} role="button">Add an order</Link>
-                                    </div><br /><br />
+                                    </div><br />
+                                    <br />
                                 </div>
                             </main>
                         </div>

@@ -168,6 +168,10 @@ h3 {
   border-radius: .3rem;
 }
 
+.accordion {
+  margin-bottom: 6%;
+  margin-top: 5%;
+}
 
 /* --carnelian: #c1121fff;
 --papaya-whip: #fdf0d5ff;
