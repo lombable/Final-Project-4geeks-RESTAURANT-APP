@@ -48,7 +48,7 @@ const ClientRegister = () => {
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col">
-              <div className="card card-registration my-4">
+              <div className="card card-registration my-4 shadow p-3 mb-5 bg-body rounded">
                 <div className="row g-0">
                   <div className="col-xl-6 d-none d-xl-block">
                     <img
@@ -58,9 +58,9 @@ const ClientRegister = () => {
                   </div>
                   <form className="col-xl-6" onSubmit={handleSubmit}>
                     <div className="card-body p-md-5 text-black">
-                      <h3 className="mb-5 text-uppercase">Worker Registration Form</h3>
+                      <strong className="mb-5 text-uppercase" style={{fontSize: "250%"}}>Worker Registration Form</strong><br/>
 
-                      <div className="row">
+                      <div className="row mt-3">
                         <div className="col-md-6 mb-4">
                           <div className="form-outline">
                             <input type="text" id="form3Example1m" name="first_name" className="form-control form-control-lg" placeholder="Fulanito" onChange={handleChange} />
