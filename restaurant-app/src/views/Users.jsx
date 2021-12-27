@@ -41,6 +41,11 @@ const Users = () => {
                                 <h3>Users</h3>
                                 <p className="lead">Here you will find all available users and information on their current status.</p>
                                 <hr />
+                                <div className="row">
+                                <div className="col py-4 text-center">
+                                        <Link className="mx-auto btn btn-success text-center justify-content-around" to="/worker-register" role="button">Add a new user</Link>
+                                    </div>
+                                </div>
                                 <div className="row text-center">
                                     <div className="col text-center pt-4">
                                         <table className="table table-striped">

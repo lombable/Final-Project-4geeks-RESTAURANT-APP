@@ -77,8 +77,6 @@ const Login = () => {
                                                     {store.error}
                                                 </div>)
                                         }
-                                        <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>Don't have an account? <Link to="/worker-register" style={{ color: "#393f81" }}>Register here</Link></p>
-
                                     </form>
 
                                 </div>

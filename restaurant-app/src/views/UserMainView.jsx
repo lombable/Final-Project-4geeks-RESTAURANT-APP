@@ -88,7 +88,7 @@ const UserMainView = () => {
 
     return (
         <>
-            <div className="col-md-12">
+            <div className="col-md-12" style={{ backgroundColor: "#d4d6d9" }}>
                 <div className="mx-4 col d-flex flex-column h-sm-100">
                     <main className="row overflow-auto pt-4">
                         <h3>Add an order</h3>
@@ -101,9 +101,8 @@ const UserMainView = () => {
                             </div>
                         </div><br /><br />
                         <div className="row lead">
-                            <br />In the shopping cart:
+                            In the shopping cart:
                         </div>
-                        <br /><br /><br />
                         <div className="row">
                             <div className="accordion" id="accordionExample2">
                                 <div className="accordion-item">
@@ -129,8 +128,8 @@ const UserMainView = () => {
                         </div>
                         <br />
                         <div className="row">
-                            <div className="col pt-4 text-center">
-                                <Link className="mx-auto btn btn-success text-center justify-content-around" onClick={() => handleClickConsole(shoppingCart)} to={"/table-view/" + params.id} role="button">Add an order</Link>
+                            <div className="col py-4 text-center">
+                                <Link className="mx-auto btn btn-success text-center justify-content-around" onClick={() => handleClickConsole(shoppingCart)} to={"/user/table-" + params.id + "-orders"} role="button">Add an order</Link>
                             </div><br /><br />
                         </div>
                     </main>

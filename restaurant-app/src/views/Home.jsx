@@ -49,10 +49,9 @@ const Home = () => {
                                 <p className="lead-home mb-0">If you are a client, then enter the number of the table you are currently sitting in so you can take a look at our menu.
                                 </p>
                                 <p className="lead-home pt-5 mt-5">
-                                    <Link className="btn btn-light btn-lg" to="/client-login">I already have a table</Link>
+                                    <Link className="btn btn-light" to="/client-login">I already have a table</Link>
                                 </p>
-                                <br/><br/><br/><br/><br/><br/>
-                                <Link to="/login" className="text-light">I work here</Link>
+                                <br/>
                             </div>
                         </div>
                     </div>

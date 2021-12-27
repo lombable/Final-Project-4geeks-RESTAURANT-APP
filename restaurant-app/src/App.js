@@ -25,6 +25,7 @@ import TableView from "./views/TableView";
 import AddOrder from "./views/AddOrder";
 import UserMainView from "./views/UserMainView";
 import MasterRoute from "./layout/masterLayout"
+import UserOrders from "./views/UserOrders";
 
 function App() {
   return (
@@ -35,7 +36,8 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/client-login" component={ClientLogin} />
-        <Route exact path="/worker-register" component={WorkerRegister} />
+        <Route exact path="/user/table-:id-orders" component={UserOrders} />
+        <MasterRoute exact path="/worker-register" component={WorkerRegister} />
         <MasterRoute exact path="/admin-panel" component={AdminPanel} />
         <MasterRoute exact path="/admin-tables" component={AdminTables} />
         <MasterRoute exact path="/table-creation" component={TableCreation} />

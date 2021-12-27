@@ -38,11 +38,12 @@ const ClientRegister = () => {
     actions.register_client(formData, history)
   }
 
+  const goBack = () => {
+    history.goBack()
+  }
+
   return (
-    <><Navbar />
-
-
-
+    <>
       <section className="h-100" style={{ backgroundColor: "#d4d6d9" }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -135,7 +136,8 @@ const ClientRegister = () => {
                       }
 
                       <div className="d-flex justify-content-end pt-3">
-                        <button type="submit" className="btn btn-warning btn-lg ms-2" onSubmit={handleSubmit}>Submit form</button>
+                      <button type="submit" className="btn btn-warning btn-small ms-2" onClick={goBack}>Go back</button>
+                        <button type="submit" className="btn btn-success btn-small ms-2" onSubmit={handleSubmit}>Submit form</button>
                       </div>
 
                     </div>
