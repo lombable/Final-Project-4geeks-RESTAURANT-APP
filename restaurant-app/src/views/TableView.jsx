@@ -50,7 +50,7 @@ const TableView = () => {
                         <div className="mx-4 col d-flex flex-column h-sm-100">
                             <main className="row overflow-auto pt-4">
                                 <h3>Table number {params.id}</h3>
-                                <p className="lead">Orders for table number {params.id}</p>
+                                <p className="lead">Current orders for this table</p>   
                                 <hr />
                                 <div className="row">
                                     <div className="col pt-4 text-center">
