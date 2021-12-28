@@ -23,7 +23,6 @@ const AdminTables = () => {
                 <th scope="row">{table.table_id}</th>
                 <td></td>
                 <td></td>
-                <td>QR</td>
                 <td><button className="btn btn-danger btn-sm" onClick={() => actions.deleteTable(history, table.table_id)} role="button">X</button></td>
             </tr>
         )
@@ -58,7 +57,6 @@ const AdminTables = () => {
                                                     <th scope="col">Table Number #</th>
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
-                                                    <th scope="col">QR</th>
                                                     <th scope="col">Eliminate</th>
                                                 </tr>
                                             </thead>

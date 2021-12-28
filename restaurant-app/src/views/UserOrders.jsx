@@ -52,7 +52,7 @@ const UserOrders = () => {
                                 <div className="row">
                                     <div className="col pt-4 text-center">
                                         <Link className="mx-auto btn btn-success text-center justify-content-around" to={"/user/table-" + params.id} role="button">Add an order</Link>
-                                        <Link className="mx-auto btn btn-danger text-center justify-content-around" to={"/"} role="button">Clean table</Link>
+                                        
                                     </div>
                                 </div>
                                 {

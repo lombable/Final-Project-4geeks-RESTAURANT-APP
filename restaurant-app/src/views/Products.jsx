@@ -19,8 +19,8 @@ const Products = () => {
                 <td>{product.product_name}</td>
                 <td>{product.product_price}</td>
                 <td>{product.category_id}</td>
-                <td>{product.is_disable ? "✓" : "X"}</td>
-                <td><Link className="btn btn-primary btn-sm" to={"/product-edit/" + product.product_id} role="button">Edit</Link></td>
+                <td>{product.is_disable ? <i className="fas fa-check" style={{color: "green"}}></i> : <i className="fas fa-times" style={{color: "red"}}></i>}</td>
+                <td><Link className="btn btn-success btn-sm" to={"/product-edit/" + product.product_id} role="button">Edit</Link></td>
             </tr>)
     })
 
